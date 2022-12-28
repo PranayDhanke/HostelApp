@@ -406,7 +406,7 @@ public class SetupAccount extends AppCompatActivity {
         User user = new User(name , email , password[0] ,
                             profile_url , mob , enrol ,
                             bran , yea , gen , date ,
-                            true , false) ;
+                            true , true) ;
 
         return user ;
     }

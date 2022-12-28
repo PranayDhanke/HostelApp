@@ -30,6 +30,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myhosteldemo.Utility.AlertUtil;
+import com.example.myhosteldemo.Utility.GlobalData;
+import com.example.myhosteldemo.model.User;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -63,6 +66,10 @@ import kotlin.text.Regex;
 import kotlin.text.RegexOption;
 
 import com.example.myhosteldemo.Utility.AlertUtil.* ;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignIn extends AppCompatActivity {
 
@@ -74,6 +81,9 @@ public class SignIn extends AppCompatActivity {
     ProgressDialog gprogress ;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database ;
+    private FirebaseUser fuser ;
+    User user ;
     TextView google ;
 
     //for facebook
@@ -103,6 +113,7 @@ public class SignIn extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance() ;
 
         //initilise gprocess bar
         gprogress = new ProgressDialog(SignIn.this) ;
@@ -458,8 +469,10 @@ public class SignIn extends AppCompatActivity {
     private void handleUserSingedUsingEmail(FirebaseUser user){
         if(user.isEmailVerified()){
             Toast.makeText(SignIn.this, "Email & Password Sign in success", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Information : Name = " + user.getDisplayName() + "\nProfile = "+user.getPhotoUrl()+"\nProvider = " + user.getProviderData().get(user.getProviderData().size() - 1), Toast.LENGTH_SHORT).show();
+            //startActivity(new Intent(SignIn.this , SetupAccount.class));
+            goForEmail(user);
             eprogress.cancel();
-            startActivity(new Intent(SignIn.this , SetupAccount.class));
         }
         else{
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(SignIn.this) ;
@@ -488,6 +501,50 @@ public class SignIn extends AppCompatActivity {
             alertDialog.show() ;
             eprogress.cancel();
         }
+
     }
+
+
+    private void goForEmail(FirebaseUser fuser){
+        database.getReference().child("Users").child(fuser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Intent intent ;
+                        if(snapshot.exists()){
+                            User user = snapshot.getValue(User.class) ;
+                            GlobalData.user = user ;
+                            if(user.isSetuped()){
+                                intent = new Intent(new Intent(SignIn.this , MainActivity.class)) ;
+                                startActivity(intent);
+                            }
+                            else{
+                                intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
+                                intent.putExtra("emailpending" , true) ;
+                                intent.putExtra("name" , user.getUsername()) ;
+                                intent.putExtra("profile" , fuser.getPhotoUrl()) ;
+                                intent.putExtra("email" , fuser.getEmail()) ;
+                                intent.putExtra("password" , user.getPassword()) ;
+                                startActivity(intent);
+                            }
+                            finish();
+                        }
+                        else{
+                            startActivity(new Intent(SignIn.this , SetupAccount.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        showAlertDialog(SignIn.this
+                                        , "Try Again"
+                                        , "Failed to load your data"
+                                        , true
+                                        , R.drawable.error
+                                        , "Ok");
+                    }
+                });
+    }
+
 
 }

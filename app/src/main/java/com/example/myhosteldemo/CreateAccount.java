@@ -153,8 +153,10 @@ public class CreateAccount extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            user.sendEmailVerification() ;
+                            FirebaseUser fuser = mAuth.getCurrentUser();
+                            fuser.sendEmailVerification() ;
+                            User user = new User(name , email , password) ;
+                            database.getReference().child("Users").child(fuser.getUid()).setValue(user) ;
                             showAlertDialog(CreateAccount.this,
                                     "Success",
                                     "Your account has been created successfully....\n\nPlease check your email inbox/spam to verify your emaiil",
