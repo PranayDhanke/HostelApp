@@ -320,7 +320,8 @@ public class SignIn extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(SignIn.this, "Google sign in with firebase Succeeded", Toast.LENGTH_LONG).show();
                                     dialog.cancel();
-                                    startActivity(new Intent(SignIn.this , SetupAccount.class));
+                                    //startActivity(new Intent(SignIn.this , SetupAccount.class));
+                                    goForGF(user);
                                     //updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -378,7 +379,8 @@ public class SignIn extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                            // Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(SignIn.this , SetupAccount.class));
+                           // startActivity(new Intent(SignIn.this , SetupAccount.class));
+                            goForGF(user);
                           //  updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -471,8 +473,8 @@ public class SignIn extends AppCompatActivity {
             Toast.makeText(SignIn.this, "Email & Password Sign in success", Toast.LENGTH_LONG).show();
             //Toast.makeText(this, "Information : Name = " + user.getDisplayName() + "\nProfile = "+user.getPhotoUrl()+"\nProvider = " + user.getProviderData().get(user.getProviderData().size() - 1), Toast.LENGTH_SHORT).show();
             //startActivity(new Intent(SignIn.this , SetupAccount.class));
+            //eprogress.dismiss();
             goForEmail(user);
-            eprogress.cancel();
         }
         else{
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(SignIn.this) ;
@@ -516,32 +518,102 @@ public class SignIn extends AppCompatActivity {
                             GlobalData.user = user ;
                             if(user.isSetuped()){
                                 intent = new Intent(new Intent(SignIn.this , MainActivity.class)) ;
+                                eprogress.cancel();
                                 startActivity(intent);
                             }
                             else{
                                 intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
                                 intent.putExtra("emailpending" , true) ;
                                 intent.putExtra("name" , user.getUsername()) ;
-                                intent.putExtra("profile" , fuser.getPhotoUrl()) ;
+                                //intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
                                 intent.putExtra("email" , fuser.getEmail()) ;
                                 intent.putExtra("password" , user.getPassword()) ;
+                                eprogress.cancel();
                                 startActivity(intent);
                             }
                             finish();
                         }
                         else{
-                            startActivity(new Intent(SignIn.this , SetupAccount.class));
+                            intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
+                            intent.putExtra("emailpending" , true) ;
+                            intent.putExtra("name" , fuser.getDisplayName()) ;
+                            //intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
+                            intent.putExtra("email" , fuser.getEmail()) ;
+                            intent.putExtra("password" , "") ;
+                            eprogress.cancel();
+                            startActivity(intent);
+                            finish() ;
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        eprogress.cancel();
                         showAlertDialog(SignIn.this
                                         , "Try Again"
-                                        , "Failed to load your data"
+                                        , "Failed to load your data\nTry signing again"
                                         , true
                                         , R.drawable.error
                                         , "Ok");
+                    }
+                });
+    }
+
+
+    private void goForGF(FirebaseUser fuser){
+        ProgressDialog dialog = new ProgressDialog(SignIn.this) ;
+        dialog.setTitle("Please wait");
+        dialog.setMessage("Loading your data....");
+        dialog.setCancelable(false);
+        dialog.show();
+
+        database.getReference().child("Users").child(fuser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user ;
+                        Intent intent ;
+                        if(snapshot.exists()){
+                            user = snapshot.getValue(User.class) ;
+                            GlobalData.user = user ;
+                            if(user.isSetuped()){
+                                dialog.dismiss();
+                                intent = new Intent(new Intent(SignIn.this , MainActivity.class)) ;
+                                startActivity(intent);
+                            }
+                            else{
+                                intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
+                                intent.putExtra("gfpending" , true) ;
+                                intent.putExtra("name" , fuser.getDisplayName()) ;
+                                intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
+                                intent.putExtra("email" , fuser.getEmail()) ;
+                                dialog.dismiss();
+                                startActivity(intent);
+                                finish() ;
+                            }
+                            finish();
+                        }
+                        else{
+                            intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
+                            intent.putExtra("gfpending" , true) ;
+                            intent.putExtra("name" , fuser.getDisplayName()) ;
+                            intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
+                            intent.putExtra("email" , fuser.getEmail()) ;
+                            dialog.dismiss();
+                            startActivity(intent);
+                            finish() ;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        dialog.dismiss();
+                        showAlertDialog(SignIn.this
+                                , "Try Again"
+                                , "Failed to load your data\nTry signing again"
+                                , true
+                                , R.drawable.error
+                                , "Ok");
                     }
                 });
     }

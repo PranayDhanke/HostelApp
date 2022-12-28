@@ -118,6 +118,7 @@ public class SetupAccount extends AppCompatActivity {
         year = findViewById(R.id.year) ;
         dob = findViewById(R.id.dob) ;
         fab = findViewById(R.id.fab) ;
+        collapsingToolbarLayout = findViewById(R.id.collapse) ;
 
         storage = FirebaseStorage.getInstance() ;
         auth = FirebaseAuth.getInstance() ;
@@ -128,7 +129,8 @@ public class SetupAccount extends AppCompatActivity {
 
         initDatePicker() ;
 
-        getProfileToImage() ;
+        //getProfileToImage() ;
+        preLoadData() ;
 
         genders = new String[]{"<--Select-->" , "male" , "female" , "other"};
         branches = new String[]{"<--Select-->" , "Computer" , "Mechanical" , "Chemical" , "Electrical" , "Electronics" , "Civil"};
@@ -235,6 +237,15 @@ public class SetupAccount extends AppCompatActivity {
 
     private void saveUserData(){
         User user = createUser() ;
+        if(user == null){
+            showAlertDialog(SetupAccount.this
+                    , "Updation Result"
+                    , "Failed to save profile changes"
+                    , true
+                    , R.drawable.error
+                    , "Ok") ;
+            return;
+        }
         ValidateUser validateUser = new ValidateUser(user , SetupAccount.this) ;
         if(!validateUser.validateUser()){
             return ;
@@ -355,7 +366,7 @@ public class SetupAccount extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++ ;
-                String date = day + "/" + month + "/" + year ;
+                String date = (day < 10 ? (0 + Integer.toString(day)) : day) + "/" + (month < 10 ? (0 + Integer.toString(month)) : month) + "/" + year ;
                 dob.setText(date);
             }
         } ;
@@ -376,8 +387,9 @@ public class SetupAccount extends AppCompatActivity {
 
 
     private User createUser(){
+        User user ;
         String email = fuser.getEmail() ;
-        String profile_url = storage.getReference().child("Profile_Pictures").child(fuser.getUid()).getDownloadUrl().toString()  ;
+
         String name = username.getText().toString() ;
         String mob = mobile.getText().toString() ;
         String enrol = enroll.getText().toString() ;
@@ -386,29 +398,14 @@ public class SetupAccount extends AppCompatActivity {
         String gen = gender.getSelectedItem().toString() ;
         String date = dob.getText().toString() ;
 
-        final String[] password = {""};
-
         DatabaseReference reference = database.getReference() ;
 
-        reference.child("Users").child(fuser.getUid()).child("password").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful()){
-                    if(task.getResult().exists())
-                        password[0] = task.getResult().getValue().toString() ;
-                }
-                else{
-                    password[0] = "" ;
-                }
-            }
-        }) ;
-
-        User user = new User(name , email , password[0] ,
-                            profile_url , mob , enrol ,
+        user= new User(name , email , "" ,
+                "", mob , enrol ,
                             bran , yea , gen , date ,
                             true , true) ;
 
-        return user ;
+        return user;
     }
 
     private void getProfileToImage(){
@@ -424,7 +421,7 @@ public class SetupAccount extends AppCompatActivity {
                            .addListener(new RequestListener<Drawable>() {
                                @Override
                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                   Toast.makeText(SetupAccount.this, "Failed to load\n" + e, Toast.LENGTH_LONG).show();
+                                   Toast.makeText(SetupAccount.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
                                    return false;
                                }
 
@@ -441,6 +438,40 @@ public class SetupAccount extends AppCompatActivity {
                 }
             }
         }) ;
+    }
+
+    private void preLoadData(){
+        Intent intent = getIntent() ;
+        if(intent.getBooleanExtra("emailpending" , false)){
+            collapsingToolbarLayout.setTitle(intent.getStringExtra("email"));
+            username.setText(intent.getStringExtra("name"));
+            loadImageFromAuth();
+        }
+        else if(intent.getBooleanExtra("gfpending" , false)){
+            collapsingToolbarLayout.setTitle(intent.getStringExtra("email"));
+            username.setText(intent.getStringExtra("name"));
+            loadImageFromAuth();
+        }
+    }
+
+
+    private void loadImageFromAuth(){
+       Glide.with(SetupAccount.this)
+               .load(fuser.getPhotoUrl())
+               .placeholder(R.drawable.profile_pic3)
+               .addListener(new RequestListener<Drawable>() {
+                   @Override
+                   public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                       Toast.makeText(SetupAccount.this, "No Profile picture set", Toast.LENGTH_SHORT).show();
+                       return false;
+                   }
+
+                   @Override
+                   public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                       return false;
+                   }
+               })
+               .into(image) ;
     }
 
 }
