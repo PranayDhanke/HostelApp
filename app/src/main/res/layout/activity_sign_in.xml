@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundkbv2"
+    tools:context=".SignIn">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/backgroundkbv2"
+            android:foreground="#50000000"
+            />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:src="@drawable/gparvi"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="E-Vidyashram"
+                    android:textSize="25dp"
+                    android:textStyle="bold|italic"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/cyan"
+                    />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
+                    app:placeholderText="yourname@domain.com"
+                    app:placeholderTextColor="@color/cyan"
+                    android:textColorHint="@color/cyan"
+                    app:hintTextColor="@color/cyan"
+                    >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/email"
+                        android:background="@drawable/edit_text_back"
+                        android:drawableStart="@drawable/email_modern"
+                        android:padding="12dp"
+                        android:layout_margin="10dp"
+                        android:hint="@string/hintEmail"
+                        android:drawablePadding="15dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/cyan"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="password_toggle"
+                    android:textColorHint="@color/cyan"
+                    app:hintTextColor="@color/cyan"
+                    app:placeholderText="your Password"
+                    app:placeholderTextColor="@color/cyan"
+                    >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/password"
+                        android:background="@drawable/edit_text_back"
+                        android:drawableStart="@drawable/password_modern"
+                        android:padding="12dp"
+                        android:layout_margin="10dp"
+                        android:hint="@string/hintPassword"
+                        android:drawablePadding="15dp"
+                        android:textColorHint="@color/red"
+                        android:textColor="@color/white"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/remember"
+                    style="@style/checkboxstyle"
+                    android:buttonTint="@color/white"
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signin"
+                    android:layout_margin="10dp"
+                    android:text="Sign In"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:background="@drawable/signin_btn_back"
+                    android:backgroundTint="@color/cyan"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dhaa"
+                    android:text="@string/dhaa"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textColor="#00FF90"
+                    android:foreground="?android:selectableItemBackgroundBorderless"
+                    />
+
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll1"
+            android:orientation="vertical"
+            android:layout_below="@+id/card2"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="others"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#00BCD4"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/ll1"
+            android:layout_margin="10dp"
+            android:weightSum="2"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/google"
+                android:drawableLeft="@drawable/google"
+                android:text="GOOGLE"
+                android:drawablePadding="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_draweble"
+                android:textSize="15dp"
+                android:padding="10dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackgroundBorderless"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/facebook"
+                android:drawableLeft="@drawable/facebook"
+                android:text="FACEBOOK"
+                android:drawablePadding="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_draweble"
+                android:textSize="15dp"
+                android:padding="10dp"
+                android:layout_marginLeft="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackgroundBorderless"
+                />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/forgot"
+            android:text="@string/forgotpassword"
+            android:textSize="20dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#00FF90"
+            android:textStyle="bold"
+            android:fontFamily="cursive"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

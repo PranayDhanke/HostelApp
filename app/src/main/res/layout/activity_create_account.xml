@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundkbv2"
+    tools:context=".CreateAccount">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/backgroundkbv2"
+            android:foreground="#50000000"
+            />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/gparvi"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-Vidyashram"
+                android:textSize="25dp"
+                android:textStyle="bold|italic"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="clear_text"
+                app:placeholderText="yourname@domain.com"
+                app:placeholderTextColor="@color/cyan"
+                android:textColorHint="@color/cyan"
+                app:hintTextColor="@color/cyan"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/email_create"
+                    android:background="@drawable/edit_text_back"
+                    android:drawableStart="@drawable/email_modern"
+                    android:layout_margin="10dp"
+                    android:hint="@string/hintEmail"
+                    android:padding="12dp"
+                    android:drawablePadding="15dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/cyan"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="clear_text"
+                app:placeholderText="yourname@domain.com"
+                app:placeholderTextColor="@color/cyan"
+                android:textColorHint="@color/cyan"
+                app:hintTextColor="@color/cyan"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/username"
+                    android:layout_margin="10dp"
+                    android:hint="@string/hintusername"
+                    android:drawableStart="@drawable/user_modern"
+                    android:drawablePadding="15dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/edit_text_back"
+                    android:inputType="text"
+                    android:textColorHint="@color/red"
+                    android:padding="12dp"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="password_toggle"
+                android:textColorHint="@color/cyan"
+                app:hintTextColor="@color/cyan"
+                app:placeholderText="your Password"
+                app:placeholderTextColor="@color/cyan"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/password_create"
+                    android:background="@drawable/edit_text_back"
+                    android:drawableStart="@drawable/password_modern"
+                    android:layout_margin="10dp"
+                    android:hint="@string/hintPassword"
+                    android:drawablePadding="15dp"
+                    android:padding="12dp"
+                    android:textColorHint="@color/red"
+                    android:textColor="@color/white"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/create"
+                android:layout_margin="10dp"
+                android:text="Create Account"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:background="@drawable/signin_btn_back"
+                android:backgroundTint="@color/cyan"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ahaa"
+                android:text="@string/ahaa"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:textColor="#00FF90"
+                android:foreground="?android:selectableItemBackgroundBorderless"
+                />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

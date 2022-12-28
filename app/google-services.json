@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1095865715950",
+    "project_id": "my-hostel-demo",
+    "storage_bucket": "my-hostel-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095865715950:android:208a8c35d9bee790e537ff",
+        "android_client_info": {
+          "package_name": "com.example.myhosteldemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095865715950-05n165g75a5dg382mhu7l3m2m4mdkc4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9f3Z74SbEX4zUfOgFxrlVHrVfqiAuxz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095865715950-05n165g75a5dg382mhu7l3m2m4mdkc4g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

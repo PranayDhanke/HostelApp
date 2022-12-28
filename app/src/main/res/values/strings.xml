@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">My Hostel</string>
+
+    <!--    <string name="default_web_client_id">124059125423-f8tcstviaka9hrjao0mvnng61it0oc6u.apps.googleusercontent.com</string>-->
+
+    <string name="facebook_app_id">1230915777463500</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">069decbbf7aae66c69cb374977b0ebd3</string>
+
+    <string name="forgotpassword"><u>Forgot Password?</u></string>
+    <string name="remember">Remember me?</string>
+    <string name="dhaa">Don\'t have an Account?<b> Sign Up</b></string>
+    <string name="ahaa">Already have an Account?<b> Sign in</b></string>
+    <string name="forgot">Don\'t worry just provide us your registered email so that we can send you reset password email!</string>
+    <string name="hintEmail"><b>Email</b></string>
+    <string name="hintPassword"><b>Password</b></string>
+    <string name="hintusername"><b>User name</b></string>
+</resources>
