@@ -14,6 +14,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.myhosteldemo.Utility.GlobalData;
 import com.example.myhosteldemo.Utility.SaveUserData;
 import com.example.myhosteldemo.Utility.ValidateUser;
 import com.example.myhosteldemo.model.User;
@@ -101,12 +103,19 @@ public class SetupAccount extends AppCompatActivity {
     //datepicker dialog
     DatePickerDialog dobDialog;
 
+    //sharedpreferences
+    SharedPreferences signinpref ;
+    SharedPreferences.Editor editor ;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_account);
+
+        signinpref = getSharedPreferences("signin" , MODE_PRIVATE) ;
+        editor = signinpref.edit() ;
 
         image = findViewById(R.id.profile_image) ;
         username = findViewById(R.id.username) ;
@@ -265,6 +274,9 @@ public class SetupAccount extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
+                                    GlobalData.user = user ;
+                                    editor.putBoolean(fuser.getUid() , true) ;
+                                    editor.apply();
                                     Toast.makeText(SetupAccount.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
                                     showAlertDialog(SetupAccount.this
                                             , "Updation Result"
@@ -417,7 +429,6 @@ public class SetupAccount extends AppCompatActivity {
                    Glide.with(SetupAccount.this)
                            .load(task.getResult().toString())
                            .placeholder(R.drawable.profile_pic)
-                           //.onlyRetrieveFromCache(true)
                            .addListener(new RequestListener<Drawable>() {
                                @Override
                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -442,12 +453,7 @@ public class SetupAccount extends AppCompatActivity {
 
     private void preLoadData(){
         Intent intent = getIntent() ;
-        if(intent.getBooleanExtra("emailpending" , false)){
-            collapsingToolbarLayout.setTitle(intent.getStringExtra("email"));
-            username.setText(intent.getStringExtra("name"));
-            loadImageFromAuth();
-        }
-        else if(intent.getBooleanExtra("gfpending" , false)){
+        if(intent.getBooleanExtra("pending" , false)){
             collapsingToolbarLayout.setTitle(intent.getStringExtra("email"));
             username.setText(intent.getStringExtra("name"));
             loadImageFromAuth();
@@ -473,5 +479,7 @@ public class SetupAccount extends AppCompatActivity {
                })
                .into(image) ;
     }
+
+
 
 }

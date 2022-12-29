@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -43,11 +44,18 @@ public class CreateAccount extends AppCompatActivity {
     //progress dialog
     ProgressDialog dialog ;
 
+    //SharedPreferences
+    SharedPreferences signinpref ;
+    SharedPreferences.Editor editor ;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        signinpref = getSharedPreferences("signin" , MODE_PRIVATE) ;
+        editor = signinpref.edit() ;
 
         mAuth = FirebaseAuth.getInstance() ;
         database = FirebaseDatabase.getInstance() ;
@@ -153,6 +161,8 @@ public class CreateAccount extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "createUserWithEmail:success");
+                            editor.putString("username" , name) ;
+                            editor.apply();
                             FirebaseUser fuser = mAuth.getCurrentUser();
                             fuser.sendEmailVerification() ;
                             User user = new User(name , email , password) ;

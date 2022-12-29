@@ -13,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,6 +60,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,6 +69,7 @@ import kotlin.text.Regex;
 import kotlin.text.RegexOption;
 
 import com.example.myhosteldemo.Utility.AlertUtil.* ;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -96,16 +100,24 @@ public class SignIn extends AppCompatActivity {
     boolean isValidEmail , isStrongPass ;
     Button siep ;
     EditText edt_email , edt_pass ;
+    CheckBox checkBox ;
     ProgressDialog eprogress ;
 
     //activity related variables
     TextView dhaa ;
+
+    //SharedPreferences
+    SharedPreferences signinpref ;
+    SharedPreferences.Editor editor ;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        signinpref = getSharedPreferences("signin" , MODE_PRIVATE) ;
+        editor = signinpref.edit() ;
 
         //google sign in starts here
 
@@ -114,6 +126,9 @@ public class SignIn extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance() ;
+        fuser = mAuth.getCurrentUser() ;
+
+        preLoad(fuser) ;   //available at end of code
 
         //initilise gprocess bar
         gprogress = new ProgressDialog(SignIn.this) ;
@@ -206,7 +221,10 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         handleFacebookAccessToken(loginResult.getAccessToken());
-                        Toast.makeText(SignIn.this, "Facebook sign in succeeded\n"+mAuth.getCurrentUser().getDisplayName()+"\n"+mAuth.getCurrentUser().getPhotoUrl(), Toast.LENGTH_LONG).show();
+                        if(mAuth.getCurrentUser() == null){
+                            Toast.makeText(SignIn.this, "Please try again", Toast.LENGTH_SHORT).show();
+                        }
+                        //Toast.makeText(SignIn.this, "Facebook sign in succeeded\n"+mAuth.getCurrentUser().getDisplayName()+"\n"+mAuth.getCurrentUser().getPhotoUrl(), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -231,6 +249,7 @@ public class SignIn extends AppCompatActivity {
         edt_email = findViewById(R.id.email) ;
         edt_pass = findViewById(R.id.password) ;
         siep = findViewById(R.id.signin) ;
+        checkBox = findViewById(R.id.remember) ;
         isValidEmail = false ; isStrongPass = false ;
 
         siep.setOnClickListener(v ->{
@@ -321,7 +340,7 @@ public class SignIn extends AppCompatActivity {
                                     Toast.makeText(SignIn.this, "Google sign in with firebase Succeeded", Toast.LENGTH_LONG).show();
                                     dialog.cancel();
                                     //startActivity(new Intent(SignIn.this , SetupAccount.class));
-                                    goForGF(user);
+                                    goForNext(user , false);
                                     //updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -380,7 +399,7 @@ public class SignIn extends AppCompatActivity {
                            // Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                            // startActivity(new Intent(SignIn.this , SetupAccount.class));
-                            goForGF(user);
+                            goForNext(user , false);
                           //  updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -473,8 +492,10 @@ public class SignIn extends AppCompatActivity {
             Toast.makeText(SignIn.this, "Email & Password Sign in success", Toast.LENGTH_LONG).show();
             //Toast.makeText(this, "Information : Name = " + user.getDisplayName() + "\nProfile = "+user.getPhotoUrl()+"\nProvider = " + user.getProviderData().get(user.getProviderData().size() - 1), Toast.LENGTH_SHORT).show();
             //startActivity(new Intent(SignIn.this , SetupAccount.class));
-            //eprogress.dismiss();
-            goForEmail(user);
+            editor.putBoolean("remember" , checkBox.isChecked()) ;
+            editor.apply();
+            eprogress.dismiss();
+            goForNext(user , true);
         }
         else{
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(SignIn.this) ;
@@ -506,66 +527,19 @@ public class SignIn extends AppCompatActivity {
 
     }
 
-
-    private void goForEmail(FirebaseUser fuser){
-        database.getReference().child("Users").child(fuser.getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Intent intent ;
-                        if(snapshot.exists()){
-                            User user = snapshot.getValue(User.class) ;
-                            GlobalData.user = user ;
-                            if(user.isSetuped()){
-                                intent = new Intent(new Intent(SignIn.this , MainActivity.class)) ;
-                                eprogress.cancel();
-                                startActivity(intent);
-                            }
-                            else{
-                                intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
-                                intent.putExtra("emailpending" , true) ;
-                                intent.putExtra("name" , user.getUsername()) ;
-                                //intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
-                                intent.putExtra("email" , fuser.getEmail()) ;
-                                intent.putExtra("password" , user.getPassword()) ;
-                                eprogress.cancel();
-                                startActivity(intent);
-                            }
-                            finish();
-                        }
-                        else{
-                            intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
-                            intent.putExtra("emailpending" , true) ;
-                            intent.putExtra("name" , fuser.getDisplayName()) ;
-                            //intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
-                            intent.putExtra("email" , fuser.getEmail()) ;
-                            intent.putExtra("password" , "") ;
-                            eprogress.cancel();
-                            startActivity(intent);
-                            finish() ;
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        eprogress.cancel();
-                        showAlertDialog(SignIn.this
-                                        , "Try Again"
-                                        , "Failed to load your data\nTry signing again"
-                                        , true
-                                        , R.drawable.error
-                                        , "Ok");
-                    }
-                });
-    }
-
-
-    private void goForGF(FirebaseUser fuser){
+    private void goForNext(FirebaseUser fuser , boolean email){
         ProgressDialog dialog = new ProgressDialog(SignIn.this) ;
         dialog.setTitle("Please wait");
         dialog.setMessage("Loading your data....");
         dialog.setCancelable(false);
         dialog.show();
+
+        if(signinpref.getBoolean(fuser.getUid() , false)){
+            dialog.dismiss();
+            startActivity(new Intent(SignIn.this , MainActivity.class));
+            finish();
+            return;
+        }
 
         database.getReference().child("Users").child(fuser.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -583,9 +557,13 @@ public class SignIn extends AppCompatActivity {
                             }
                             else{
                                 intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
-                                intent.putExtra("gfpending" , true) ;
-                                intent.putExtra("name" , fuser.getDisplayName()) ;
-                                intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
+                                intent.putExtra("pending" , true) ;
+                                    if(email){
+                                        intent.putExtra("name" , signinpref.getString("username" , fuser.getDisplayName())) ;
+                                    }
+                                    else{
+                                        intent.putExtra("name" , fuser.getDisplayName()) ;
+                                    }
                                 intent.putExtra("email" , fuser.getEmail()) ;
                                 dialog.dismiss();
                                 startActivity(intent);
@@ -595,9 +573,8 @@ public class SignIn extends AppCompatActivity {
                         }
                         else{
                             intent = new Intent(new Intent(SignIn.this , SetupAccount.class)) ;
-                            intent.putExtra("gfpending" , true) ;
+                            intent.putExtra("pending" , true) ;
                             intent.putExtra("name" , fuser.getDisplayName()) ;
-                            intent.putExtra("profile" , fuser.getPhotoUrl().toString()) ;
                             intent.putExtra("email" , fuser.getEmail()) ;
                             dialog.dismiss();
                             startActivity(intent);
@@ -616,6 +593,30 @@ public class SignIn extends AppCompatActivity {
                                 , "Ok");
                     }
                 });
+    }
+
+    private void preLoad(FirebaseUser user){
+        boolean remember = signinpref.getBoolean("remember" , false) ;
+        if(user != null){
+            List list = user.getProviderData() ;
+            UserInfo info = (UserInfo) list.get(list.size() - 1) ;
+            String provider = info.getProviderId() ;
+            if(provider.contains("google.com")){
+                Toast.makeText(this, "Signing using google\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
+                goForNext(user , false);
+            }
+            else if(provider.contains("facebook.com")){
+                Toast.makeText(this, "Signing using facebook\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
+                goForNext(user , false);
+            }
+            else{
+                if(remember){
+                    Toast.makeText(this, "Signing using email\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
+                    goForNext(user , true);
+                }
+            }
+
+        }
     }
 
 
