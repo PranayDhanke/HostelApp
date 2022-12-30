@@ -1,6 +1,7 @@
 package com.example.myhosteldemo;
 
 import static com.example.myhosteldemo.Utility.AlertUtil.showAlertDialog;
+import static com.example.myhosteldemo.Utility.GlobalData.changeColorOfStatusBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -115,6 +116,8 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        changeColorOfStatusBar(this , R.color.black) ;
 
         signinpref = getSharedPreferences("signin" , MODE_PRIVATE) ;
         editor = signinpref.edit() ;

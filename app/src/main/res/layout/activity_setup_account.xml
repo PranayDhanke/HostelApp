@@ -92,15 +92,15 @@
             android:orientation="vertical"
             >
 
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="30dp"
-               android:text="Edit your profile"
-               android:textSize="25dp"
-               android:textColor="@color/black"
-               android:textStyle="bold"
-               android:textAlignment="center"
-               />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="@font/alike"
+                android:text="Edit your profile"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

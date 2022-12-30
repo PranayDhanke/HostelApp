@@ -1,6 +1,7 @@
 package com.example.myhosteldemo;
 
 import static com.example.myhosteldemo.Utility.AlertUtil.showAlertDialog;
+import static com.example.myhosteldemo.Utility.GlobalData.changeColorOfStatusBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +45,7 @@ import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -71,6 +73,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SetupAccount extends AppCompatActivity {
 
     Toolbar toolbar ;
+    AppBarLayout appBarLayout ;
     CollapsingToolbarLayout collapsingToolbarLayout ;
 
     //for user information
@@ -114,6 +117,8 @@ public class SetupAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_account);
 
+        changeColorOfStatusBar(this , R.color.black) ;
+
         signinpref = getSharedPreferences("signin" , MODE_PRIVATE) ;
         editor = signinpref.edit() ;
 
@@ -128,6 +133,7 @@ public class SetupAccount extends AppCompatActivity {
         dob = findViewById(R.id.dob) ;
         fab = findViewById(R.id.fab) ;
         collapsingToolbarLayout = findViewById(R.id.collapse) ;
+        appBarLayout = findViewById(R.id.appbar) ;
 
         storage = FirebaseStorage.getInstance() ;
         auth = FirebaseAuth.getInstance() ;
@@ -222,6 +228,8 @@ public class SetupAccount extends AppCompatActivity {
         image.setOnClickListener(v -> handleImage());
 
         fab.setOnClickListener(v -> handleImage());
+
+        appBarLayout.addOnOffsetChangedListener((a,b) -> offsetChanged(a,b));
 
 
     }
@@ -478,6 +486,22 @@ public class SetupAccount extends AppCompatActivity {
                    }
                })
                .into(image) ;
+    }
+
+
+    private void offsetChanged(AppBarLayout appBarLayout , int verticalOffset){
+        if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
+        {
+            //  Collapsed
+            changeColorOfStatusBar(this , R.color.red);
+
+        }
+        else
+        {
+            //Expanded
+            changeColorOfStatusBar(this , R.color.black);
+
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.myhosteldemo;
 
 import static com.example.myhosteldemo.Utility.AlertUtil.showAlertDialog;
+import static com.example.myhosteldemo.Utility.GlobalData.changeColorOfStatusBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,8 @@ public class ForgotPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+
+        changeColorOfStatusBar(this , R.color.black) ;
 
         edt_email = findViewById(R.id.email);
 
