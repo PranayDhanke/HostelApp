@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Hostel</string>
+    <string name="app_name">E-Vidyashram</string>
 
     <!--    <string name="default_web_client_id">124059125423-f8tcstviaka9hrjao0mvnng61it0oc6u.apps.googleusercontent.com</string>-->
 
@@ -15,4 +15,6 @@
     <string name="hintEmail"><b>Email</b></string>
     <string name="hintPassword"><b>Password</b></string>
     <string name="hintusername"><b>User name</b></string>
+    <string name="draweropen">Drawer Open</string>
+    <string name="drawerclosed">Drawer Closed</string>
 </resources>
