@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Resource_Courses">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/res_course_toolbar"
+        android:background="@color/cyandark"
+        app:title="Courses"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/arrow_back"
+        />
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/course_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shimmer_demo_child_count="10"
+        app:shimmer_demo_layout="@layout/"
+        app:shimmer_demo_angle="20"
+        android:layout_below="@+id/res_course_toolbar"
+        />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_course"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/add"
+        android:backgroundTint="@color/red"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/course_nodata"
+        android:text="No Courses Found"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>
