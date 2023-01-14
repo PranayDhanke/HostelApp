@@ -6,10 +6,12 @@ import static com.example.myhosteldemo.Utility.GlobalData.changeColorOfStatusBar
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,9 +22,12 @@ public class ForgotPassword extends AppCompatActivity {
 
     EditText edt_email ;
 
+    ImageView back ;
+
     //progress dialog
     ProgressDialog dialog ;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +36,7 @@ public class ForgotPassword extends AppCompatActivity {
         changeColorOfStatusBar(this , R.color.black) ;
 
         edt_email = findViewById(R.id.email);
+        back = findViewById(R.id.backarrow) ;
 
         //Progress Diagog
         dialog = new ProgressDialog(this) ;
@@ -39,6 +45,8 @@ public class ForgotPassword extends AppCompatActivity {
         dialog.setCancelable(false);
 
         findViewById(R.id.submit).setOnClickListener(v -> handleForgotPassword());
+
+        back.setOnClickListener(v -> finish());
 
     }
 

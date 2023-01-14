@@ -27,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -75,6 +77,7 @@ public class SetupAccount extends AppCompatActivity {
     Toolbar toolbar ;
     AppBarLayout appBarLayout ;
     CollapsingToolbarLayout collapsingToolbarLayout ;
+    FloatingActionButton back ;
 
     //for user information
     CircleImageView image ;
@@ -85,7 +88,10 @@ public class SetupAccount extends AppCompatActivity {
     Button dob ;
 
     //for spinner
-    String[] genders , branches , years ;
+    ArrayList<String> genders = new ArrayList<String>() ;
+    ArrayList<String> branches = new ArrayList<String>() ;
+    ArrayList<String> years = new ArrayList<String>() ;
+
     boolean gflag = false , bflag = false , yflag = false ;
 
     //Array adapters
@@ -111,6 +117,13 @@ public class SetupAccount extends AppCompatActivity {
     SharedPreferences.Editor editor ;
 
 
+    public SetupAccount(){
+        genders.add("<--Select-->") ; genders.add("male") ; genders.add("female") ; genders.add("others") ;
+        branches.add("<--Select-->") ; branches.add("Computer") ; branches.add("Mechanical") ; branches.add("Chemical") ; branches.add("Electrical") ; branches.add("Electronics") ; branches.add("Civil") ;
+        years.add("<--Select-->") ; years.add("1st year") ; years.add("2nd year") ; years.add("3rd year") ;
+    }
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,22 +147,20 @@ public class SetupAccount extends AppCompatActivity {
         fab = findViewById(R.id.fab) ;
         collapsingToolbarLayout = findViewById(R.id.collapse) ;
         appBarLayout = findViewById(R.id.appbar) ;
+        toolbar = findViewById(R.id.toolbar) ;
+
 
         storage = FirebaseStorage.getInstance() ;
         auth = FirebaseAuth.getInstance() ;
         fuser = auth.getCurrentUser() ;
         database = FirebaseDatabase.getInstance() ;
 
+        setSupportActionBar(toolbar);
         progress = new ProgressDialog(SetupAccount.this) ;
 
         initDatePicker() ;
 
         //getProfileToImage() ;
-        preLoadData() ;
-
-        genders = new String[]{"<--Select-->" , "male" , "female" , "other"};
-        branches = new String[]{"<--Select-->" , "Computer" , "Mechanical" , "Chemical" , "Electrical" , "Electronics" , "Civil"};
-        years = new String[]{"<--Select-->" , "1st year" , "2nd year" , "3rd year"};
 
         ga = new ArrayAdapter(this, R.layout.drop_down_item,genders) ;
         ga.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
@@ -221,6 +232,8 @@ public class SetupAccount extends AppCompatActivity {
             }
         });
 
+        preLoadData() ;
+
         dob.setOnClickListener(v -> dobDialog.show());
 
         save.setOnClickListener(v -> saveUserData());
@@ -231,7 +244,15 @@ public class SetupAccount extends AppCompatActivity {
 
         appBarLayout.addOnOffsetChangedListener((a,b) -> offsetChanged(a,b));
 
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish() ;
+        return super.onSupportNavigateUp();
     }
 
     @Override
@@ -370,6 +391,7 @@ public class SetupAccount extends AppCompatActivity {
                 if(task.isSuccessful()){
                     progress.dismiss();
                     image.setImageURI(uri);
+                    GlobalData.profile_uri = uri ;
                     Toast.makeText(SetupAccount.this, "Profile pic has been updated successfully", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -418,14 +440,43 @@ public class SetupAccount extends AppCompatActivity {
         String gen = gender.getSelectedItem().toString() ;
         String date = dob.getText().toString() ;
 
-        DatabaseReference reference = database.getReference() ;
-
         user= new User(name , email , "" ,
                 "", mob , enrol ,
                             bran , yea , gen , date ,
                             true , true) ;
 
         return user;
+    }
+
+
+    private void preLoadData(){
+        Intent intent = getIntent() ;
+        if(intent.getBooleanExtra("pending" , false)){
+            collapsingToolbarLayout.setTitle(intent.getStringExtra("email"));
+            username.setText(intent.getStringExtra("name"));
+            //loadImageFromAuth();
+            getProfileToImage();
+        }
+        else if(getIntent().getBooleanExtra("MainActivity" , false)){
+            collapsingToolbarLayout.setTitle(GlobalData.user.getEmail());
+            username.setText(GlobalData.user.getUsername());
+            mobile.setText(GlobalData.user.getPhone());
+            enroll.setText(GlobalData.user.getEnroll());
+            branch.setSelection(branches.indexOf(GlobalData.user.getBranch()));
+            Toast.makeText(this, "Size : " + branches.size() + "index : " + branches.indexOf(GlobalData.user.getBranch()) +"\nData : " + GlobalData.user.getBranch(), Toast.LENGTH_SHORT).show();
+            year.setSelection(years.indexOf(GlobalData.user.getYear()));
+            gender.setSelection(genders.indexOf(GlobalData.user.getGender()));
+            dob.setText(GlobalData.user.getDob());
+            if(GlobalData.profile != null){
+                image.setImageDrawable(GlobalData.profile);
+            }
+            if(GlobalData.profile_uri != null){
+                image.setImageURI(GlobalData.profile_uri);
+            }
+            else{
+                getProfileToImage();
+            }
+        }
     }
 
     private void getProfileToImage(){
@@ -436,7 +487,7 @@ public class SetupAccount extends AppCompatActivity {
                     //Toast.makeText(SetupAccount.this, "Task successful", Toast.LENGTH_SHORT).show();
                    Glide.with(SetupAccount.this)
                            .load(task.getResult().toString())
-                           .placeholder(R.drawable.profile_pic)
+                           .placeholder(R.drawable.profile_pic3)
                            .addListener(new RequestListener<Drawable>() {
                                @Override
                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -446,28 +497,21 @@ public class SetupAccount extends AppCompatActivity {
 
                                @Override
                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                   GlobalData.profile = resource ;
                                    return false;
                                }
                            })
-                           .into(image) ;
+                           .into(image);
+
                 }
                 else{
+                    loadImageFromAuth();
                     //do nothing
                     //Toast.makeText(SetupAccount.this, "Task failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }) ;
     }
-
-    private void preLoadData(){
-        Intent intent = getIntent() ;
-        if(intent.getBooleanExtra("pending" , false)){
-            collapsingToolbarLayout.setTitle(intent.getStringExtra("email"));
-            username.setText(intent.getStringExtra("name"));
-            loadImageFromAuth();
-        }
-    }
-
 
     private void loadImageFromAuth(){
        Glide.with(SetupAccount.this)
@@ -482,6 +526,7 @@ public class SetupAccount extends AppCompatActivity {
 
                    @Override
                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                       GlobalData.profile = resource ;
                        return false;
                    }
                })

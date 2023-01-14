@@ -71,6 +71,7 @@
                 app:layout_collapseMode="pin"
                 android:id="@+id/toolbar"
                 android:backgroundTint="@color/red"
+                app:navigationIcon="@drawable/arrow_back"
                 />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

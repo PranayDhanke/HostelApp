@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.myhosteldemo.Utility.GlobalData;
 import com.example.myhosteldemo.model.User;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -26,7 +28,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class SplashScreen extends AppCompatActivity {
@@ -37,6 +44,7 @@ public class SplashScreen extends AppCompatActivity {
     FirebaseAuth mAuth ;
     FirebaseDatabase database ;
     FirebaseUser fuser ;
+    FirebaseStorage storage ;
 
     //Sharedpreferences
     SharedPreferences signinpref ;
@@ -57,6 +65,40 @@ public class SplashScreen extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance() ;
         fuser = mAuth.getCurrentUser() ;
         database = FirebaseDatabase.getInstance() ;
+        storage = FirebaseStorage.getInstance() ;
+
+//        storage.getReference().child("Profile_Pictures").child(fuser.getUid())
+//                .getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+//                    @Override
+//                    public void onSuccess(StorageMetadata storageMetadata) {
+//                        String prefix , sufix ;
+//                        prefix = "Profile." ;
+//                        //sufix = storageMetadata.getContentType() ;
+//                        sufix = "jpeg" ;
+//                        try {
+//                            File temp = File.createTempFile(prefix , sufix) ;
+//                            storage.getReference().child("Profile_Pictures").child(fuser.getUid())
+//                                    .getFile(temp).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//                                        @Override
+//                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                                            Toast.makeText(SplashScreen.this, "file created successfully", Toast.LENGTH_SHORT).show();
+//                                            try {
+//                                                getExternalFilesDir(null).createNewFile() ;
+//                                                temp.createNewFile() ;
+//                                                Toast.makeText(SplashScreen.this, "Saved file + "+temp.getName(), Toast.LENGTH_SHORT).show();
+//                                            } catch (IOException e) {
+//                                                Toast.makeText(SplashScreen.this, ""+e, Toast.LENGTH_SHORT).show();
+//                                                e.printStackTrace();
+//                                            }
+//                                        }
+//                                    }) ;
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }) ;
+
 
         if(fuser != null){
             boolean remember = signinpref.getBoolean("remember" , false) ;
@@ -76,6 +118,9 @@ public class SplashScreen extends AppCompatActivity {
                        // Toast.makeText(this, "Signing using email\n"+fuser.getEmail(), Toast.LENGTH_SHORT).show();
                         goForNext(fuser , true);
                     }
+                    else{
+                        goForNext(fuser , true);
+                    }
                 }
 
             }
@@ -90,11 +135,14 @@ public class SplashScreen extends AppCompatActivity {
             } , 2000) ;
         }
 
+
+
     }
 
 
     private void goForNext(FirebaseUser fuser , boolean email){
         if(signinpref.getBoolean(fuser.getUid() , false)){
+            preLoadGlobalData();
             end = System.currentTimeMillis() ;
             long time = end - start ;
             if(time > 2000){
@@ -131,7 +179,7 @@ public class SplashScreen extends AppCompatActivity {
                                 intent = new Intent(new Intent(SplashScreen.this , SetupAccount.class)) ;
                                 intent.putExtra("pending" , true) ;
                                 if(email){
-                                    intent.putExtra("name" , signinpref.getString("username" , fuser.getDisplayName())) ;
+                                    intent.putExtra("name" , user.getUsername()) ;
                                 }
                                 else{
                                     intent.putExtra("name" , fuser.getDisplayName()) ;
@@ -145,7 +193,12 @@ public class SplashScreen extends AppCompatActivity {
                         else{
                             intent = new Intent(new Intent(SplashScreen.this , SetupAccount.class)) ;
                             intent.putExtra("pending" , true) ;
-                            intent.putExtra("name" , fuser.getDisplayName()) ;
+                            if(email){
+                                intent.putExtra("name" , signinpref.getString("username" , fuser.getDisplayName())) ;
+                            }
+                            else{
+                                intent.putExtra("name" , fuser.getDisplayName()) ;
+                            }
                             intent.putExtra("email" , fuser.getEmail()) ;
                             startActivity(intent);
                             finish() ;
@@ -158,4 +211,28 @@ public class SplashScreen extends AppCompatActivity {
                     }
                 });
     }
+
+    private void preLoadGlobalData(){
+        try {
+            database.getReference().child("Users").child(fuser.getUid())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                GlobalData.user = snapshot.getValue(User.class);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
