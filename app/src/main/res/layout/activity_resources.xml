@@ -1,21 +1,500 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="false"
     tools:context=".Resources">
 
-    <Button
-        android:id="@+id/upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload file"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/res_toolbar"
+        android:background="@color/cyandark"
+        app:title="Resources"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/arrow_back"
+        />
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Your Branch"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:textAlignment="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/computer"
+                android:layout_margin="10dp"
+                android:background="#56CCCACA"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/res_comp"
+                    android:src="@drawable/computer_svg"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/res_comp_title"
+                    android:text="CSE"
+                    android:layout_toRightOf="@+id/res_comp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Computer Science"
+                    android:layout_toRightOf="@+id/res_comp"
+                    android:layout_below="@id/res_comp_title"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:fabSize="mini"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/next"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/res_comp"
+                    android:layout_marginTop="10dp"
+                    android:background="#BFBFBF"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mechanical"
+                android:layout_margin="10dp"
+                android:background="#56CCCACA"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/res_mech"
+                    android:src="@drawable/mechanical_svg"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/res_mech_title"
+                    android:text="ME"
+                    android:layout_toRightOf="@+id/res_mech"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mechanical"
+                    android:layout_toRightOf="@+id/res_mech"
+                    android:layout_below="@id/res_mech_title"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:fabSize="mini"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/next"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/res_mech"
+                    android:layout_marginTop="10dp"
+                    android:background="#BFBFBF"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chemical"
+                android:layout_margin="10dp"
+                android:background="#56CCCACA"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/res_chem"
+                    android:src="@drawable/chemical_svg"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/res_chem_title"
+                    android:text="CH"
+                    android:layout_toRightOf="@+id/res_chem"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chemical"
+                    android:layout_toRightOf="@+id/res_chem"
+                    android:layout_below="@id/res_chem_title"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:fabSize="mini"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/next"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/res_chem"
+                    android:layout_marginTop="10dp"
+                    android:background="#BFBFBF"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/electrical"
+                android:layout_margin="10dp"
+                android:background="#56CCCACA"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/res_ele"
+                    android:src="@drawable/electrical_svg"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/res_ele_title"
+                    android:text="EE"
+                    android:layout_toRightOf="@+id/res_ele"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Electrical"
+                    android:layout_toRightOf="@+id/res_ele"
+                    android:layout_below="@id/res_ele_title"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:fabSize="mini"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/next"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/res_ele"
+                    android:layout_marginTop="10dp"
+                    android:background="#BFBFBF"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/electronics"
+                android:layout_margin="10dp"
+                android:background="#56CCCACA"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/res_elec"
+                    android:src="@drawable/electronics_svg"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/res_elec_title"
+                    android:text="ECE"
+                    android:layout_toRightOf="@+id/res_elec"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Electronics"
+                    android:layout_toRightOf="@+id/res_elec"
+                    android:layout_below="@id/res_elec_title"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:fabSize="mini"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/next"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/res_elec"
+                    android:layout_marginTop="10dp"
+                    android:background="#BFBFBF"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/civil"
+                android:layout_margin="10dp"
+                android:background="#56CCCACA"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/res_civil"
+                    android:src="@drawable/civil_svg"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/res_civil_title"
+                    android:text="CE"
+                    android:layout_toRightOf="@+id/res_civil"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Civil"
+                    android:layout_toRightOf="@+id/res_civil"
+                    android:layout_below="@id/res_civil_title"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:fabSize="mini"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/next"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/res_civil"
+                    android:layout_marginTop="10dp"
+                    android:background="#BFBFBF"
+                    />
+            </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/common"
+                    android:layout_margin="10dp"
+                    android:background="#56CCCACA"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/res_common"
+                        android:src="@drawable/civil_svg"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/black"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/res_common_title"
+                        android:text="Common"
+                        android:layout_toRightOf="@+id/res_common"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/red"
+                        android:layout_marginLeft="20dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Common for all"
+                        android:layout_toRightOf="@+id/res_common"
+                        android:layout_below="@id/res_common_title"
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="20dp"
+                        />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        app:fabSize="mini"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/next"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_below="@id/res_common"
+                        android:layout_marginTop="10dp"
+                        android:background="#BFBFBF"
+                        />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+
+<!--    <Button-->
+<!--        android:id="@+id/upload"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Upload file"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.5" />-->
+
+</LinearLayout>

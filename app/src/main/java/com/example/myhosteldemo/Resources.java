@@ -3,6 +3,7 @@ package com.example.myhosteldemo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.PathUtils;
@@ -15,10 +16,13 @@ import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myhosteldemo.Services.UploadService;
 import com.example.myhosteldemo.Utility.AlertUtil;
+import com.example.myhosteldemo.Utility.GlobalData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -35,13 +39,78 @@ import java.util.Map;
 
 public class Resources extends AppCompatActivity {
 
+    Toolbar toolbar ;
+    RelativeLayout computer , mechanical , chemical , electrical , electronics , civil , common ;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resources);
 
-        findViewById(R.id.upload).setOnClickListener(v -> handleUpload());
+        toolbar = findViewById(R.id.res_toolbar) ;
+        computer = findViewById(R.id.computer) ;
+        mechanical = findViewById(R.id.mechanical) ;
+        chemical = findViewById(R.id.chemical) ;
+        electrical = findViewById(R.id.electrical) ;
+        electronics = findViewById(R.id.electronics) ;
+        civil = findViewById(R.id.civil) ;
+        common = findViewById(R.id.common) ;
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        GlobalData.changeColorOfStatusBar(this , R.color.cyandark);
+        //findViewById(R.id.upload).setOnClickListener(v -> handleUpload());
+
+        computer.setOnClickListener(v -> {
+            Intent intent = new Intent(Resources.this , Resource_Courses.class) ;
+            intent.putExtra("Branch" , "Computer") ;
+            startActivity(intent);
+        });
+
+        mechanical.setOnClickListener(v -> {
+            Intent intent = new Intent(Resources.this , Resource_Courses.class) ;
+            intent.putExtra("Branch" , "Mechanical") ;
+            startActivity(intent);
+        });
+
+        chemical.setOnClickListener(v -> {
+            Intent intent = new Intent(Resources.this , Resource_Courses.class) ;
+            intent.putExtra("Branch" , "Chemical") ;
+            startActivity(intent);
+        });
+
+        electrical.setOnClickListener(v -> {
+            Intent intent = new Intent(Resources.this , Resource_Courses.class) ;
+            intent.putExtra("Branch" , "Electrical") ;
+            startActivity(intent);
+        });
+
+        electronics.setOnClickListener(v -> {
+            Intent intent = new Intent(Resources.this , Resource_Courses.class) ;
+            intent.putExtra("Branch" , "Electronics") ;
+            startActivity(intent);
+        });
+
+        civil.setOnClickListener(v -> {
+            Intent intent = new Intent(Resources.this , Resource_Courses.class) ;
+            intent.putExtra("Branch" , "Civil") ;
+            startActivity(intent);
+        });
+
+        common.setOnClickListener(v -> {
+            Intent intent = new Intent(Resources.this , Resource_Courses.class) ;
+            intent.putExtra("Branch" , "Common") ;
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish() ;
+        return super.onSupportNavigateUp();
     }
 
     private void handleUpload() {

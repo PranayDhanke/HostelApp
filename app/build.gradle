@@ -69,4 +69,7 @@ dependencies {
    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
+    //shimmer recycler view
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+
 }
