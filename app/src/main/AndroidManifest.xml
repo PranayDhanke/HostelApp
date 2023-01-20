@@ -26,6 +26,13 @@
         android:theme="@style/Theme.MyHostelDemo"
         tools:targetApi="31">
         <activity
+            android:name=".Course_files"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Resource_Courses"
             android:exported="false">
             <meta-data

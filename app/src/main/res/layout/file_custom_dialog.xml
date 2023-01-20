@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select File"
+            android:textColor="@color/cyan"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_topic"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:hint="Enter Topic name"
+            android:inputType="text"
+            android:background="#19000000"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_desc"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:hint="Topic Description"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:background="#19000000"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="15dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doc Type : "
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                />
+
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/file_type"
+                android:layout_weight="1"
+                style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_select"
+            android:padding="10dp"
+            android:background="@drawable/signin_btn_back"
+            android:text="Select file to upload"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_upload"
+            android:background="@drawable/signin_btn_back"
+            android:text="Upload"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:enabled="false"
+            android:backgroundTint="@color/grey"
+            android:layout_marginBottom="10dp"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

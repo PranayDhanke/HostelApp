@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/course_dialog_id"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:hint="Enter course id"
+            android:inputType="text"
+            />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/course_dialog_name"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:hint="Enter course name"
+            android:inputType="text"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/course_dialog_cancel"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:background="@color/cyan"
+                android:text="Cancel"
+                android:textColor="@color/white"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/course_dialog_ok"
+                android:layout_margin="10dp"
+                android:background="@color/cyan"
+                android:text="Ok"
+                android:textColor="@color/white"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

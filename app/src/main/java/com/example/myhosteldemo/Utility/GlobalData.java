@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.myhosteldemo.R;
 import com.example.myhosteldemo.SetupAccount;
+import com.example.myhosteldemo.model.File_model;
 import com.example.myhosteldemo.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +32,8 @@ public class GlobalData {
     public static User user ;
     public static Drawable profile ;
     public static Uri profile_uri ;
+    public static FirebaseUser fuser ;
+    public static File_model fm ;
 
     public static void changeColorOfStatusBar(Activity activity, int color){
         Window window = activity.getWindow();

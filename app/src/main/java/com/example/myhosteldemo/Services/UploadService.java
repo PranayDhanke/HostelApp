@@ -16,8 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.myhosteldemo.Course_files;
 import com.example.myhosteldemo.R;
 import com.example.myhosteldemo.Resources;
+import com.example.myhosteldemo.Utility.GlobalData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -43,12 +45,14 @@ public class UploadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent notiIIntent = new Intent(this , Resources.class) ;
+        Intent notiIIntent = new Intent(this , Course_files.class) ;
         PendingIntent pendingIntent = PendingIntent.getActivity(this , 0 , notiIIntent , 0) ;
 
         Uri uri = intent.getParcelableExtra("Uri") ;
         String type = intent.getStringExtra("Type") ;
         String size = intent.getStringExtra("Size") ;
+        String branch = intent.getStringExtra("Branch") ;
+        String course = intent.getStringExtra("Course") ;
 
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O){
             NotificationChannel service = new NotificationChannel(CHANNELID , CHANNELID , NotificationManager.IMPORTANCE_HIGH) ;
@@ -63,7 +67,7 @@ public class UploadService extends Service {
                 .setContentIntent(pendingIntent)
                 .build() ;
 
-        uploadToStorage(uri , type , size) ;
+        uploadToStorage(uri , type , size , branch , course) ;
 
         startForeground(1 , notification);
 
@@ -138,10 +142,9 @@ public class UploadService extends Service {
         }
     }
 
-    private void uploadToStorage(Uri uri , String type , String size) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference() ;
-        String key = ref.child("Resources/Computer/").push().getKey() ;
-        StorageReference storage = FirebaseStorage.getInstance().getReference().child("Resources/Computer/").child(key) ;
+    private void uploadToStorage(Uri uri , String type , String size , String branch , String course) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Resources/"+branch+"/Files/"+course+"/"+ GlobalData.fm.getTopic() + "/") ;
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child("Resources/"+branch+"/"+course+"/"+ GlobalData.fm.getTopic()) ;
 
         UploadTask uploadTask = storage.putFile(uri) ;
 
@@ -160,17 +163,19 @@ public class UploadService extends Service {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if(task.isSuccessful()){
-                                Map<String , String> map = new HashMap<>() ;
-                                map.put("Title" , "Android development") ;
-                                map.put("Desc" , "To learn about android") ;
-                                map.put("Url" , task.getResult().toString()) ;
-                                map.put("Size" , size) ;
-                                map.put("Type" , type) ;
-                                ref.child("Resources/Computer/").child(key).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                Map<String , String> map = new HashMap<>() ;
+//                                map.put("Title" , "Android development") ;
+//                                map.put("Desc" , "To learn about android") ;
+//                                map.put("Url" , task.getResult().toString()) ;
+//                                map.put("Size" , size) ;
+//                                map.put("Type" , type) ;
+                                GlobalData.fm.setUrl(task.getResult().toString());
+                                ref.setValue(GlobalData.fm).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()){
                                             Toast.makeText(UploadService.this, "File uploaded to storage succesfully", Toast.LENGTH_SHORT).show();
+                                            notifySuccess();
                                         }
                                         else{
                                             Toast.makeText(UploadService.this, "Failed to upload file " + task.getException(), Toast.LENGTH_LONG).show();

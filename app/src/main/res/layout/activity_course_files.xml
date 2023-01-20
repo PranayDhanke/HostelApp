@@ -4,34 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Resource_Courses">
+    tools:context=".Course_files">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/res_course_toolbar"
+        android:id="@+id/files_toolbar"
         android:background="@color/cyandark"
-        app:title="Courses"
+        app:title="files"
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/arrow_back"
         />
 
     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/course_recycle"
+        android:id="@+id/files_recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:shimmer_demo_child_count="10"
         app:shimmer_demo_layout="@layout/course_info_shimmer"
         app:shimmer_demo_angle="20"
-        android:layout_below="@+id/res_course_toolbar"
+        android:layout_below="@+id/files_toolbar"
         />
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/add_course"
+        android:id="@+id/add_files"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
@@ -42,8 +41,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/course_nodata"
-        android:text="No Courses Found"
+        android:id="@+id/files_nodata"
+        android:text="No Files Found"
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_centerInParent="true"
@@ -51,5 +50,6 @@
         android:textColor="@color/red"
         android:visibility="gone"
         />
+
 
 </RelativeLayout>
