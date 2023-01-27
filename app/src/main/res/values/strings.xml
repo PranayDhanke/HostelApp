@@ -17,4 +17,14 @@
     <string name="hintusername"><b>User name</b></string>
     <string name="draweropen">Drawer Open</string>
     <string name="drawerclosed">Drawer Closed</string>
+    <string name="readmore"><u>more</u></string>
+    <string name="readless"><u>...less</u></string>
+
+    <string name="messmenu">Receive Notifications about what\'s cooked in the mess before every meal</string>
+    <string name="collegeevents">Receive Notificatons about all college events , seminars , guest lectures etc…</string>
+    <string name="feedback">Please , provide feedback on our application about how it is and how can we improve it.</string>
+    <string name="reportbug">Found a bug…Report it so that we can fix it.</string>
+    <string name="about">Designed and Developed by :-\n\nTejas Pokale\nPranay Dhanke\nNirbhay Ghagre\nYash Gangamwar\nRishikesh Shinde</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
