@@ -34,7 +34,6 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_margin="10dp"
-        android:layout_below="@id/com_add_toolbar"
         android:background="@color/lightgrey"
         >
 
@@ -111,7 +110,9 @@
             android:drawablePadding="15dp"
             android:textColor="@color/black"
             android:textColorHint="@color/cyan"
-            android:lines="5"
+            android:minLines="5"
+            android:inputType="textMultiLine"
+            android:gravity="start|top"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,6 +127,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/com_add_addImage"
             android:layout_gravity="center"
             android:foreground="?selectableItemBackground"
             android:clickable="true"
@@ -156,9 +158,42 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <androidx.viewpager2.widget.ViewPager2
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/com_add_viewpager"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               android:visibility="gone"
+               />
+
+           <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+               android:id="@+id/com_add_view_dot"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               app:dotsColor="@color/black"
+               app:dotsCornerRadius="8dp"
+               app:dotsSize="8dp"
+               app:dotsSpacing="4dp"
+               android:visibility="gone"
+               app:dotsStrokeColor="@color/lightgrey"
+               app:dotsStrokeWidth="2dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/com_add_viewpager" />
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/com_add_private"
             android:text="Make it Private"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
@@ -175,12 +210,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
-            android:background="@drawable/signin_btn_back"
+            android:id="@+id/com_add_submit"
             android:layout_margin="10dp"
-            android:textColor="@color/white"
+            android:background="@drawable/signin_btn_back"
             android:backgroundTint="#E91E63"
-            />
+            android:text="Submit"
+            android:textColor="@color/white" />
+
+
 
     </LinearLayout>
 

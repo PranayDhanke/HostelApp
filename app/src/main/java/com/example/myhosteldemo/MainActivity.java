@@ -185,6 +185,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 logout() ;
                 break;
+            case R.id.nav_settings:
+                intent = new Intent(MainActivity.this , Settings.class) ;
+                startActivity(intent);
+                break;
+            case R.id.nav_complaints:
+                intent = new Intent(MainActivity.this , Complaints.class) ;
+                startActivity(intent);
+                break;
+            case R.id.nav_resources:
+                intent = new Intent(MainActivity.this , Resources.class) ;
+                startActivity(intent);
+                break;
         }
 
         return false;
@@ -228,47 +240,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             header_pic.setImageURI(GlobalData.profile_uri);
         }
         else{
-            getProfileToImage();
+            getProfileToImage(GlobalData.user.getProfile());
         }
 
     }
 
-    private void getProfileToImage(){
-        storage.getReference().child("Profile_Pictures").child(fuser.getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()){
-                    //Toast.makeText(SetupAccount.this, "Task successful", Toast.LENGTH_SHORT).show();
-                    try {
-                        Glide.with(MainActivity.this)
-                                .load(task.getResult().toString())
-                                .placeholder(R.drawable.profile_pic3)
-                                .addListener(new RequestListener<Drawable>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                        Toast.makeText(MainActivity.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
-                                        return false;
-                                    }
+    private void getProfileToImage(String url){
+        if(url != null && url != ""){
+            Glide.with(MainActivity.this)
+                    .load(url)
+                    .placeholder(R.drawable.profile_pic3)
+                    .addListener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Toast.makeText(MainActivity.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
+                            return false;
+                        }
 
-                                    @Override
-                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                        GlobalData.profile = resource;
-                                        return false;
-                                    }
-                                })
-                                .into(header_pic);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            GlobalData.profile = resource ;
+                            return false;
+                        }
+                    })
+                    .into(header_pic);
+        }
+        else{
+            loadImageFromAuth();
+        }
 
-                }
-                else{
-                    loadImageFromAuth();
-                    //do nothing
-                    //Toast.makeText(SetupAccount.this, "Task failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }) ;
     }
 
     private void loadImageFromAuth(){
@@ -301,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             GlobalData.user = user ;
                             header_email.setText(user.getEmail());
                             header_name.setText(user.getUsername());
+                            getProfileToImage(user.getProfile());
                         }
                     }
 
@@ -314,7 +315,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
-        preLoadHeader();
+        if(GlobalData.user != null){
+            preLoadHeader();
+        }
+
         super.onResume();
     }
 

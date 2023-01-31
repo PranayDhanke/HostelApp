@@ -34,7 +34,7 @@ public class GlobalData {
     public static Uri profile_uri ;
     public static FirebaseUser fuser ;
     public static File_model fm ;
-
+    public static boolean complaintAdded = false ;
     public static void changeColorOfStatusBar(Activity activity, int color){
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

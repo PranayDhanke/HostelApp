@@ -5,7 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.myhosteldemo.Adapter.Complaint_ViewPager_Adapter;
 import com.example.myhosteldemo.Utility.GlobalData;
@@ -61,6 +64,24 @@ public class Complaints extends AppCompatActivity {
             }
         });
 
+        viewPager2.setNestedScrollingEnabled(true);
+
+        viewPager2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                return true;
+            }
+        });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            viewPager2.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
+                }
+            });
+        }
 
     }
 

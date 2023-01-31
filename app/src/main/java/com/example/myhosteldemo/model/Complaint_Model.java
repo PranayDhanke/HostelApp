@@ -7,17 +7,23 @@ public class Complaint_Model {
     ArrayList<String> images ;
     int up_votes ;
     String status ;
+    boolean pri ;
+    long time ;
+    String key ;
 
     public Complaint_Model() {
     }
 
-    public Complaint_Model(String com_by, String topic, String desc, ArrayList<String> images, int up_votes, String status) {
+    public Complaint_Model(String com_by, String topic, String desc, ArrayList<String> images, int up_votes, String status , boolean pri , long time , String key) {
         this.com_by = com_by;
         this.topic = topic;
         this.desc = desc;
         this.images = images;
         this.up_votes = up_votes;
         this.status = status;
+        this.pri = pri ;
+        this.time = time ;
+        this.key = key ;
     }
 
     public String getCom_by() {
@@ -44,6 +50,12 @@ public class Complaint_Model {
         return status;
     }
 
+    public boolean getPri(){return pri ;}
+
+    public long getTime(){ return time ;}
+
+    public String getKey(){ return key ;}
+
     public void setCom_by(String com_by) {
         this.com_by = com_by;
     }
@@ -67,4 +79,10 @@ public class Complaint_Model {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public void setPri(boolean pri) {this.pri = pri ;}
+
+    public  void setTime(long time){ this.time = time ;}
+
+    public void setKey(String key) { this.key = key ;}
 }

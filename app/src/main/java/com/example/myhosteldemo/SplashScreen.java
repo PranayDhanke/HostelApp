@@ -67,39 +67,6 @@ public class SplashScreen extends AppCompatActivity {
         database = FirebaseDatabase.getInstance() ;
         storage = FirebaseStorage.getInstance() ;
 
-//        storage.getReference().child("Profile_Pictures").child(fuser.getUid())
-//                .getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
-//                    @Override
-//                    public void onSuccess(StorageMetadata storageMetadata) {
-//                        String prefix , sufix ;
-//                        prefix = "Profile." ;
-//                        //sufix = storageMetadata.getContentType() ;
-//                        sufix = "jpeg" ;
-//                        try {
-//                            File temp = File.createTempFile(prefix , sufix) ;
-//                            storage.getReference().child("Profile_Pictures").child(fuser.getUid())
-//                                    .getFile(temp).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//                                        @Override
-//                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                                            Toast.makeText(SplashScreen.this, "file created successfully", Toast.LENGTH_SHORT).show();
-//                                            try {
-//                                                getExternalFilesDir(null).createNewFile() ;
-//                                                temp.createNewFile() ;
-//                                                Toast.makeText(SplashScreen.this, "Saved file + "+temp.getName(), Toast.LENGTH_SHORT).show();
-//                                            } catch (IOException e) {
-//                                                Toast.makeText(SplashScreen.this, ""+e, Toast.LENGTH_SHORT).show();
-//                                                e.printStackTrace();
-//                                            }
-//                                        }
-//                                    }) ;
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }) ;
-
-
         if(fuser != null){
             boolean remember = signinpref.getBoolean("remember" , false) ;
                 List list = fuser.getProviderData() ;

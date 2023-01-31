@@ -8,34 +8,34 @@
         <menu>
 
             <item
-                android:id="@+id/home"
+                android:id="@+id/nav_home"
                 android:title="Home"
                 android:icon="@drawable/home_nav"
                 android:checkable="true"/>
 
             <item
-                android:id="@+id/mess"
+                android:id="@+id/nav_mess"
                 android:title="Mess"
                 android:icon="@drawable/mess_nav"
                 android:checkable="true"/>
 
             <item
-                android:id="@+id/complaints"
+                android:id="@+id/nav_complaints"
                 android:title="Complaints"
                 android:icon="@drawable/complaints_nav"
                 android:checkable="true"/>
 
             <item
-                android:id="@+id/resources"
+                android:id="@+id/nav_resources"
                 android:title="Resources"
                 android:icon="@drawable/resources_nav"
                 android:checkable="true"/>
 
-            <item
-                android:id="@+id/council"
-                android:title="Students Council"
-                android:icon="@drawable/council_nav"
-                android:checkable="true"/>
+<!--            <item-->
+<!--                android:id="@+id/council"-->
+<!--                android:title="Students Council"-->
+<!--                android:icon="@drawable/council_nav"-->
+<!--                android:checkable="true"/>-->
 
 
         </menu>
@@ -77,28 +77,28 @@
         <menu>
 
             <item
-                android:id="@+id/settings"
+                android:id="@+id/nav_settings"
                 android:title="Settings"
                 android:icon="@drawable/settings_nav"
                 android:checkable="true"/>
 
-            <item
-                android:id="@+id/feedback"
-                android:title="Feedback"
-                android:icon="@drawable/feedback_nav"
-                android:checkable="true"/>
+<!--            <item-->
+<!--                android:id="@+id/feedback"-->
+<!--                android:title="Feedback"-->
+<!--                android:icon="@drawable/feedback_nav"-->
+<!--                android:checkable="true"/>-->
 
-            <item
-                android:id="@+id/bug"
-                android:title="Report Bug"
-                android:icon="@drawable/bug_nav"
-                android:checkable="true"/>
+<!--            <item-->
+<!--                android:id="@+id/bug"-->
+<!--                android:title="Report Bug"-->
+<!--                android:icon="@drawable/bug_nav"-->
+<!--                android:checkable="true"/>-->
 
-            <item
-                android:id="@+id/about"
-                android:title="About Developer"
-                android:icon="@drawable/about_nav"
-                android:checkable="true"/>
+<!--            <item-->
+<!--                android:id="@+id/about"-->
+<!--                android:title="About Developer"-->
+<!--                android:icon="@drawable/about_nav"-->
+<!--                android:checkable="true"/>-->
 
         </menu>
 

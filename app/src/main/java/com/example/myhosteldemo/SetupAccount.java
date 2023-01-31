@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -53,8 +54,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
@@ -68,6 +71,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -232,8 +237,6 @@ public class SetupAccount extends AppCompatActivity {
             }
         });
 
-        preLoadData() ;
-
         dob.setOnClickListener(v -> dobDialog.show());
 
         save.setOnClickListener(v -> saveUserData());
@@ -244,7 +247,7 @@ public class SetupAccount extends AppCompatActivity {
 
         appBarLayout.addOnOffsetChangedListener((a,b) -> offsetChanged(a,b));
 
-       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }
@@ -274,64 +277,142 @@ public class SetupAccount extends AppCompatActivity {
     }
 
     private void saveUserData(){
-        User user = createUser() ;
-        if(user == null){
-            showAlertDialog(SetupAccount.this
-                    , "Updation Result"
-                    , "Failed to save profile changes"
-                    , true
-                    , R.drawable.error
-                    , "Ok") ;
-            return;
-        }
-        ValidateUser validateUser = new ValidateUser(user , SetupAccount.this) ;
+        ProgressDialog dialog = new ProgressDialog(SetupAccount.this) ;
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.setTitle("Updating...");
+        dialog.setMessage("Saving Profile Changes....");
+        dialog.setIcon(R.drawable.information);
+        dialog.show();
+
+        final User[] user = new User[1];
+        String email = fuser.getEmail() ;
+
+        String name = username.getText().toString() ;
+        String mob = mobile.getText().toString() ;
+        String enrol = enroll.getText().toString() ;
+        String bran = branch.getSelectedItem().toString() ;
+        String yea = year.getSelectedItem().toString() ;
+        String gen = gender.getSelectedItem().toString() ;
+        String date = dob.getText().toString() ;
+        final String[] pass = {""};
+        final String[] url = {""};
+
+        user[0] = createUser() ;
+
+        ValidateUser validateUser = new ValidateUser(user[0], SetupAccount.this) ;
         if(!validateUser.validateUser()){
+            dialog.dismiss();
             return ;
         }
-        else{
-            ProgressDialog dialog = new ProgressDialog(SetupAccount.this) ;
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.setCancelable(false);
-            dialog.setTitle("Updating...");
-            dialog.setMessage("Saving Profile Changes....");
-            dialog.setIcon(R.drawable.information);
-            dialog.show();
 
-            try{
-                database.getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    GlobalData.user = user ;
-                                    editor.putBoolean(fuser.getUid() , true) ;
-                                    editor.apply();
-                                    Toast.makeText(SetupAccount.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
-                                    showAlertDialog(SetupAccount.this
-                                            , "Updation Result"
-                                            , "Profile changes saved successfully"
-                                            , true
-                                            , R.drawable.success
-                                            , "Ok") ;
-                                    dialog.dismiss();
-                                }
-                                else{
-                                    Toast.makeText(SetupAccount.this, "Failed to store data\n" + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                    showAlertDialog(SetupAccount.this
-                                            , "Updation Result"
-                                            , "Failed to save profile changes"
-                                            , true
-                                            , R.drawable.error
-                                            , "Ok") ;
-                                    dialog.dismiss();
-                                }
-                            }
-                        }) ;
-            }catch (Exception e){
-                dialog.dismiss();
-                //Toast.makeText(context , "Cann't save data\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
+        database.getReference().child("Users/" + fuser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            pass[0] = snapshot.getValue(User.class).getPassword() ;
+                        }
+                        else{
+                            pass[0] = "" ;
+                        }
+                        //getting image url
+                        storage.getReference().child("Profile_Pictures/").child(fuser.getUid())
+                                .getDownloadUrl().
+                                addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        if(task.isSuccessful()) {
+                                            if (task.getResult() == null) {
+                                                url[0] = "";
+                                            } else {
+                                                url[0] = task.getResult().toString();
+
+                                            }
+                                        }
+                                        else if(task.getException().getLocalizedMessage().equals("Object does not exist at location.")) {
+                                            url[0] = "";
+                                        }
+                                        else{
+                                            Toast.makeText(SetupAccount.this, "This is storage\nFailed to store data\n" + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                            showAlertDialog(SetupAccount.this
+                                                    , "Updation Result"
+                                                    , "Failed to save profile changes"
+                                                    , true
+                                                    , R.drawable.error
+                                                    , "Ok") ;
+                                            dialog.dismiss();
+                                            return ;
+                                        }
+
+                                        //saving user data
+                                        user[0] = new User(name , email , pass[0] ,
+                                                url[0], mob , enrol ,
+                                                bran , yea , gen , date ,
+                                                true , true) ;
+
+                                        try{
+                                            database.getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user[0])
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if(task.isSuccessful()){
+                                                                GlobalData.user = user[0];
+                                                                editor.putBoolean(fuser.getUid() , true) ;
+                                                                editor.apply();
+                                                                Toast.makeText(SetupAccount.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
+                                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetupAccount.this) ;
+                                                                alertDialog.setTitle("Result") ;
+                                                                alertDialog.setMessage("Profile changes saved successfully") ;
+                                                                alertDialog.setCancelable(false) ;
+                                                                alertDialog.setIcon(R.drawable.information) ;
+                                                                alertDialog.setPositiveButton("Ok" , new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                                        Intent intent = getIntent() ;
+                                                                        if(intent.getBooleanExtra("pending" , false)){
+                                                                            startActivity(new Intent(SetupAccount.this , MainActivity.class));
+                                                                            finish();
+                                                                        }
+                                                                        dialogInterface.dismiss();
+                                                                    }
+                                                                }) ;
+                                                                alertDialog.show() ;
+                                                                dialog.dismiss();
+                                                            }
+                                                            else{
+                                                                Toast.makeText(SetupAccount.this, "Failed to store data\n" + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                                showAlertDialog(SetupAccount.this
+                                                                        , "Updation Result"
+                                                                        , "Failed to save profile changes"
+                                                                        , true
+                                                                        , R.drawable.error
+                                                                        , "Ok") ;
+                                                                dialog.dismiss();
+                                                            }
+                                                        }
+                                                    }) ;
+                                        }catch (Exception e){
+                                            dialog.dismiss();
+                                            //Toast.makeText(context , "Cann't save data\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                }) ;
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(SetupAccount.this, "Failed to store data\n" + error.toException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        showAlertDialog(SetupAccount.this
+                                , "Updation Result"
+                                , "Failed to save profile changes"
+                                , true
+                                , R.drawable.error
+                                , "Ok") ;
+                        dialog.dismiss();
+                    }
+                });
     }
 
     private void handleImage(){
@@ -353,9 +434,12 @@ public class SetupAccount extends AppCompatActivity {
         progress.setMax(100);
         progress.setCanceledOnTouchOutside(false);
 
+        String path = uri.getPath().toString() ;
+        String name = path.substring(path.lastIndexOf("/")) ;
+
         StorageReference reference = storage.getReference()
                 .child("Profile_Pictures")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()) ;
+                .child(fuser.getUid() + "/" + name) ;
 
         progress.show();
 
@@ -389,10 +473,39 @@ public class SetupAccount extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
-                    progress.dismiss();
-                    image.setImageURI(uri);
-                    GlobalData.profile_uri = uri ;
-                    Toast.makeText(SetupAccount.this, "Profile pic has been updated successfully", Toast.LENGTH_SHORT).show();
+                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if(task.isSuccessful()){
+                                String url = task.getResult().toString() ;
+                                Map<String , Object> hash = new HashMap() ;
+                                hash.put("profile" , url) ;
+
+                                database.getReference().child("Users/" + fuser.getUid() + "/")
+                                        .updateChildren(hash)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    progress.dismiss();
+                                                    image.setImageURI(uri);
+                                                    GlobalData.profile_uri = uri ;
+                                                    Toast.makeText(SetupAccount.this, "Profile pic has been updated successfully", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else{
+                                                    progress.dismiss();
+                                                    Toast.makeText(SetupAccount.this, "Failed to save image\nError = " +task.getException(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }) ;
+                            }
+                            else{
+                                progress.dismiss();
+                                Toast.makeText(SetupAccount.this, "Failed to save image\nError = " +task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }) ;
+
                 }
                 else{
                     progress.dismiss();
@@ -455,7 +568,7 @@ public class SetupAccount extends AppCompatActivity {
             collapsingToolbarLayout.setTitle(intent.getStringExtra("email"));
             username.setText(intent.getStringExtra("name"));
             //loadImageFromAuth();
-            getProfileToImage();
+            getProfileToImage("");
         }
         else if(getIntent().getBooleanExtra("MainActivity" , false)){
             collapsingToolbarLayout.setTitle(GlobalData.user.getEmail());
@@ -474,43 +587,35 @@ public class SetupAccount extends AppCompatActivity {
                 image.setImageURI(GlobalData.profile_uri);
             }
             else{
-                getProfileToImage();
+                getProfileToImage(GlobalData.user.getProfile());
             }
         }
     }
 
-    private void getProfileToImage(){
-        storage.getReference().child("Profile_Pictures").child(fuser.getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()){
-                    //Toast.makeText(SetupAccount.this, "Task successful", Toast.LENGTH_SHORT).show();
-                   Glide.with(SetupAccount.this)
-                           .load(task.getResult().toString())
-                           .placeholder(R.drawable.profile_pic3)
-                           .addListener(new RequestListener<Drawable>() {
-                               @Override
-                               public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                   Toast.makeText(SetupAccount.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
-                                   return false;
-                               }
+    private void getProfileToImage(String url){
+        if(url != null && url != ""){
+            Glide.with(SetupAccount.this)
+                    .load(url)
+                    .placeholder(R.drawable.profile_pic3)
+                    .addListener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Toast.makeText(SetupAccount.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
+                            return false;
+                        }
 
-                               @Override
-                               public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                   GlobalData.profile = resource ;
-                                   return false;
-                               }
-                           })
-                           .into(image);
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            GlobalData.profile = resource ;
+                            return false;
+                        }
+                    })
+                    .into(image);
+        }
+        else{
+            loadImageFromAuth();
+        }
 
-                }
-                else{
-                    loadImageFromAuth();
-                    //do nothing
-                    //Toast.makeText(SetupAccount.this, "Task failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }) ;
     }
 
     private void loadImageFromAuth(){
@@ -520,7 +625,7 @@ public class SetupAccount extends AppCompatActivity {
                .addListener(new RequestListener<Drawable>() {
                    @Override
                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                       Toast.makeText(SetupAccount.this, "No Profile picture set", Toast.LENGTH_SHORT).show();
+                       //Toast.makeText(SetupAccount.this, "No Profile picture set", Toast.LENGTH_SHORT).show();
                        return false;
                    }
 
@@ -550,5 +655,41 @@ public class SetupAccount extends AppCompatActivity {
     }
 
 
+    //onstart activity
 
+
+    @Override
+    protected void onStart() {
+        ProgressDialog progressDialog = new ProgressDialog(this) ;
+        progressDialog.setMessage("Loading....please wait");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        preLoadData();
+
+        progressDialog.dismiss();
+
+        super.onStart();
+    }
 }
+
+
+// Glide.with(SetupAccount.this)
+//         .load(task.getResult().toString())
+//         .placeholder(R.drawable.profile_pic3)
+//         .addListener(new RequestListener<Drawable>() {
+//@Override
+//public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//        Toast.makeText(SetupAccount.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
+//        return false;
+//        }
+//
+//@Override
+//public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//        GlobalData.profile = resource ;
+//        return false;
+//        }
+//        })
+//        .into(image);
+
+//    loadImageFromAuth();
