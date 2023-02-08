@@ -179,6 +179,7 @@ public class Add_Complaint extends AppCompatActivity {
     private void updateViewPager(Uri uri){
         images.add(new Complaint_Viewpager(uri)) ;
         image_adapter.notifyDataSetChanged();
+        Toast.makeText(this, "Image added", Toast.LENGTH_SHORT).show();
     }
 
     private void uploadComplaint(){

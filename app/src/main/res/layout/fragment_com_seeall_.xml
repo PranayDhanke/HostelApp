@@ -5,12 +5,29 @@
     android:layout_height="match_parent"
     tools:context=".fragments.com_seeall_Fragment">
 
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/com_seeall_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shimmer_demo_child_count="10"
+        app:shimmer_demo_layout="@layout/course_info_shimmer"
+        app:shimmer_demo_angle="20"
+        android:nestedScrollingEnabled="true"
+        android:layout_alignParentTop="true"
+        />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="All public complaints shown here"
+        android:id="@+id/com_seeall_nodata"
+        android:text="No Complaints Found"
         android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

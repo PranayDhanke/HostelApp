@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/mycomlay_root"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -35,17 +36,36 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/mycomlay_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
                 android:text="User Name"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:lines="1"
-                android:ellipsize="end"
                 app:layout_constraintStart_toEndOf="@+id/mycomlay_image"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/mycomlay_kebab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/kebab_menu"
+                style="@style/DialogSpiner"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/mycomlay_name"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -125,29 +145,61 @@
                 />
 
             <ImageView
+                android:id="@+id/mycomlay_likeimage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/mycomlay_likeimage"
-                android:src="@drawable/heart_nofill"
-                app:layout_constraintTop_toBottomOf="@id/mycomlay_desc"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
-                />
+                android:src="@drawable/heart_nofill"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mycomlay_desc" />
 
             <TextView
                 android:id="@+id/mycomlay_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="0 likes"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/mycomlay_likeimage"
-                app:layout_constraintRight_toRightOf="@id/mycomlay_likeimage"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mycomlay_likeimage" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mycomlay_status"
+                android:layout_marginBottom="10dp"
+                android:text="Status : "
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/mycomlay_pending"
+
+                android:lines="1"
+                android:ellipsize="end"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mycomlay_pending"
+                android:layout_marginBottom="10dp"
+                android:text="Pending"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/mycomlay_likes"
+                app:layout_constraintRight_toRightOf="parent"
+                android:lines="1"
+                android:ellipsize="end"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

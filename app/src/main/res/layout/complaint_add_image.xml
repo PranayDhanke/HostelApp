@@ -25,14 +25,16 @@
 
             <ImageView
                 android:id="@+id/com_add_view_image"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_width="fill_parent"
+                android:layout_height="400dp"
+                android:maxHeight="400dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/pass5"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/pass5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -60,5 +62,13 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cardView"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

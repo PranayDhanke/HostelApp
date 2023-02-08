@@ -15,6 +15,10 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Material3.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.Material3.TitleSmall</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -30,5 +34,17 @@
 
     </style>
 
+    <style name="filter_dialog" parent="Theme.Material3.Dark.NoActionBar">
+
+    </style>
+
+    <style name="chipstyle" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_bg</item>
+        <item name="android:textColor">@color/chip_text_bg</item>
+    </style>
+
+    <style name="DialogSpiner" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:spinnerMode">dialog</item>
+    </style>
 
 </resources>

@@ -14,6 +14,7 @@
        app:shimmer_demo_layout="@layout/course_info_shimmer"
        app:shimmer_demo_angle="20"
        android:layout_above="@id/com_add_complaint"
+       android:nestedScrollingEnabled="true"
        />
 
    <TextView

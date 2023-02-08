@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:theme="@style/filter_dialog"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filters"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text"
+        android:hint="User Name"
+        app:boxBackgroundMode="none"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/com_seeall_filter_username"
+            android:background="@drawable/edit_text_back"
+            android:drawableStart="@drawable/user_modern"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:drawablePadding="15dp"
+            android:textColor="@color/black"
+            android:inputType="text"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Completeness : "
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/com_seeall_filter_compleness_group"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="0dp"
+            app:chipSpacingVertical="5dp"
+            app:chipSpacing="5dp"
+            style="@style/Widget.Material3.Chip.Filter"
+            app:singleSelection="true"
+            >
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/com_seeall_filter_completepen"
+                android:text="Pending"
+                android:checkable="true"
+                app:rippleColor="@color/red"
+                style="@style/chipstyle"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/com_seeall_filter_completepro"
+                android:text="Under Progress"
+                style="@style/chipstyle"
+                android:checkable="true"
+                app:rippleColor="@color/red"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/com_seeall_filter_completeres"
+                android:text="Resolved"
+                style="@style/chipstyle"
+                android:checkable="true"
+                app:rippleColor="@color/red"
+                />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Others : "
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/com_seeall_filter_liked_group"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="0dp"
+            app:singleSelection="true"
+            >
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/com_seeall_filter_likedmost"
+                android:text="Most Liked"
+                style="@style/chipstyle"
+                app:rippleColor="@color/red"
+                android:checkable="true"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/com_seeall_filter_likedleast"
+                android:text="Least Liked"
+                style="@style/chipstyle"
+                app:rippleColor="@color/red"
+                android:checkable="true"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/com_seeall_filter_timenew"
+                android:text="Newest First"
+                style="@style/chipstyle"
+                app:rippleColor="@color/red"
+                android:checkable="true"
+                android:checked="true"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/com_seeall_filter_timeold"
+                android:text="Oldest First"
+                app:rippleColor="@color/red"
+                style="@style/chipstyle"
+                android:checkable="true"
+                />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_margin="10dp"
+        >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/com_seeall_filter_ok"
+            android:text="Ok"
+            android:backgroundTint="@color/cyan"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/com_seeall_filter_cancel"
+            android:text="Cancel"
+            android:backgroundTint="@color/cyan"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

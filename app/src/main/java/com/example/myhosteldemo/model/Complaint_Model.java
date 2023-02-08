@@ -85,4 +85,19 @@ public class Complaint_Model {
     public  void setTime(long time){ this.time = time ;}
 
     public void setKey(String key) { this.key = key ;}
+
+    @Override
+    public String toString() {
+        return "Complaint_Model{" +
+                "com_by='" + com_by + '\'' +
+                ", topic='" + topic + '\'' +
+                ", desc='" + desc + '\'' +
+                ", images=" + images +
+                ", up_votes=" + up_votes +
+                ", status='" + status + '\'' +
+                ", pri=" + pri +
+                ", time=" + time +
+                ", key='" + key + '\'' +
+                '}';
+    }
 }

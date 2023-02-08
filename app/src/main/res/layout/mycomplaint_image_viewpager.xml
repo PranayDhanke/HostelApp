@@ -22,7 +22,7 @@
             <ImageView
                 android:id="@+id/mycomlay_view_image"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 android:maxHeight="400dp"
