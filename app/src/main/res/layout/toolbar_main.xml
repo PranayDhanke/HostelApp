@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         >
 
@@ -22,15 +22,10 @@
             android:id="@+id/main_toolbar"
             android:background="@color/cyandark"
             >
-<!--            <ImageView-->
-<!--                android:layout_width="35dp"-->
-<!--                android:layout_height="35dp"-->
-<!--                android:src="@drawable/menu"-->
-<!--                />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="start"
                 >
@@ -67,8 +62,6 @@
         app:insetForeground="@color/trans"
         android:foreground="@color/trans"
         />
-
-
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

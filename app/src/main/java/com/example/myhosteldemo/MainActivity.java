@@ -10,7 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,8 +24,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,10 +38,14 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.myhosteldemo.Adapter.Main_viewpager_adapter;
 import com.example.myhosteldemo.Utility.GlobalData;
+import com.example.myhosteldemo.model.Main_Viewpager_Model;
 import com.example.myhosteldemo.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +54,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -65,6 +80,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View header ;
 
     AlertDialog.Builder alertDialog  ;
+
+    //auto sliding image view
+    static ViewPager2 viewPager2 ;
+    WormDotsIndicator indicator ;
+    FloatingActionButton fab ;
+    static ArrayList<Main_Viewpager_Model> viewmodel ;
+    Main_viewpager_adapter view_adapter ;
+    AppBarLayout appBar ;
+    TextView hi ;
+    public static Handler pageHandeler = new Handler() ;
+    static boolean forward = true ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
     }
 
+    @SuppressLint("MissingInflatedId")
     private void initialiseAll(){
         setContentView(R.layout.activity_main);
         changeColorOfStatusBar(MainActivity.this , R.color.cyandark) ;
@@ -144,12 +171,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         header_pic = header.findViewById(R.id.head_prof) ;
         header_email = header.findViewById(R.id.head_email) ;
         header_name = header.findViewById(R.id.head_name) ;
+        viewPager2 = findViewById(R.id.main_viewpager) ;
+        indicator = findViewById(R.id.main_view_indicator) ;
+        fab = findViewById(R.id.main_view_add) ;
+        appBar = findViewById(R.id.main_appbar) ;
+        hi = findViewById(R.id.main_toolbar_hi) ;
 
         setUpNavigationDrawerMenu() ;
 
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
         preLoadHeader() ;
+
+        loadViewpager() ;
+
+        appBar.addOnOffsetChangedListener((a,b) -> offsetChanged(a,b));
     }
 
     private void setUpNavigationDrawerMenu(){
@@ -319,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             preLoadHeader();
         }
 
+        pageHandeler.postDelayed(runnable , 2000) ;
         super.onResume();
     }
 
@@ -340,4 +377,101 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    private  void loadViewpager(){
+        viewmodel = new ArrayList<>() ;
+        view_adapter = new Main_viewpager_adapter(this , viewmodel) ;
+
+        View root = LayoutInflater.from(this).inflate(R.layout.main_viewpager , null)  ;
+
+        for(int i = 0 ; i < 5 ; i++){
+            viewmodel.add(new Main_Viewpager_Model(root.findViewById(R.id.main_view_image) , null , R.drawable.backgroundkbv2)) ;
+        }
+
+        viewmodel.add(new Main_Viewpager_Model(root.findViewById(R.id.main_view_image) , null , -1)) ;
+
+        viewPager2.setAdapter(view_adapter);
+        indicator.attachTo(viewPager2);
+        viewPager2.setOffscreenPageLimit(3);
+        viewPager2.setClipChildren(false);
+        viewPager2.setClipToPadding(false);
+        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer transformer = new CompositePageTransformer() ;
+        transformer.addTransformer(new MarginPageTransformer(40));
+        transformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position) ;
+                page.setScaleY(0.85f + r * 0.14f);
+            }
+        });
+        viewPager2.setPageTransformer(transformer);
+        view_adapter.notifyDataSetChanged();
+
+
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                pageHandeler.removeCallbacks(runnable);
+                pageHandeler.postDelayed(runnable , 2000) ;
+            }
+        });
+
+        viewPager2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Toast.makeText(MainActivity.this, "youch", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+    }
+
+    public static Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if(viewPager2 != null){
+                if(forward){
+                    viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
+                    if(viewPager2.getCurrentItem() >= viewmodel.size()-1){
+                        forward = false ;
+                    }
+                }
+                else{
+                    viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
+                    if(viewPager2.getCurrentItem() <= 0){
+                        forward = true ;
+                    }
+                }
+            }
+        }
+    } ;
+
+
+    private void offsetChanged(AppBarLayout appBarLayout , int verticalOffset){
+        if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
+        {
+            //  Collapsed
+            appBarLayout.setBackgroundColor(getResources().getColor(R.color.white));
+            hi.setText("Welcome , " + GlobalData.user.getUsername());
+            hi.setVisibility(View.VISIBLE);
+            viewPager2.setVisibility(View.INVISIBLE);
+            indicator.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            //Expanded
+            hi.setVisibility(View.GONE);
+            viewPager2.setVisibility(View.VISIBLE);
+            indicator.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pageHandeler.removeCallbacks(runnable);
+    }
 }

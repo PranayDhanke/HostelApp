@@ -1,13 +1,400 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="false"
+    android:background="@color/white"
+    >
 
 
-    <include layout="@layout/toolbar_main"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_toolbar"
+            android:background="@color/cyandark"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="start"
+                >
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/elogo"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="E-Vidyashram"
+                    android:textSize="22dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                >
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_appbar"
+                    android:fitsSystemWindows="true"
+                    android:background="@color/white"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    >
+
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                        android:id="@+id/collapse"
+                        app:expandedTitleTextColor="@color/white"
+                        >
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            app:layout_collapseMode="pin"
+                            android:id="@+id/main_view_toolbar"
+                            android:backgroundTint="@color/white">
+
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:id="@+id/main_toolbar_hi"
+                               android:text="Welcome , User"
+                               android:textColor="@color/red"
+                               android:textSize="25sp"
+                               android:textAlignment="center"
+                               android:visibility="visible"
+                               android:textStyle="bold"
+                               android:maxLines="1"
+                               android:ellipsize="end"
+                               />
+
+                        </androidx.appcompat.widget.Toolbar>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    >
+
+                                    <androidx.viewpager2.widget.ViewPager2
+                                        android:layout_width="match_parent"
+                                        android:layout_height="300dp"
+                                        android:id="@+id/main_viewpager"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toRightOf="parent"
+                                        />
+
+                                    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/main_view_indicator"
+                                        android:layout_marginBottom="30dp"
+                                        app:dotsSize="8dp"
+                                        app:layout_constraintBottom_toBottomOf="@id/main_viewpager"
+                                        app:layout_constraintLeft_toLeftOf="@id/main_viewpager"
+                                        app:layout_constraintRight_toRightOf="@id/main_viewpager" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:background="#57A3FBE7"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="2"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_weight="1"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                >
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    >
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:clickable="true"
+                                        android:focusable="true"
+                                        android:foreground="?android:selectableItemBackground"
+                                        >
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Mess"
+                                            android:textStyle="bold"
+                                            android:textSize="17sp"
+                                            android:textColor="@color/black"
+                                            android:textAlignment="center"
+                                            android:layout_marginTop="10dp"
+                                            />
+
+                                        <de.hdodenhof.circleimageview.CircleImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="120dp"
+                                            android:src="@drawable/main_mess"
+                                            />
+
+                                    </LinearLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                >
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    >
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:clickable="true"
+                                        android:focusable="true"
+                                        android:foreground="?android:selectableItemBackground"
+                                        >
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Complaints"
+                                            android:textStyle="bold"
+                                            android:textSize="17sp"
+                                            android:textColor="@color/black"
+                                            android:textAlignment="center"
+                                            android:layout_marginTop="10dp"
+                                            />
+
+                                        <de.hdodenhof.circleimageview.CircleImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="120dp"
+                                            android:src="@drawable/main_complaints"
+                                            />
+
+                                    </LinearLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_weight="1"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                >
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    >
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:clickable="true"
+                                        android:focusable="true"
+                                        android:foreground="?android:selectableItemBackground"
+                                        >
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Resources"
+                                            android:textStyle="bold"
+                                            android:textSize="17sp"
+                                            android:textColor="@color/black"
+                                            android:textAlignment="center"
+                                            android:layout_marginTop="10dp"
+                                            />
+
+                                        <de.hdodenhof.circleimageview.CircleImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="120dp"
+                                            android:src="@drawable/main_resources"
+                                            />
+
+                                    </LinearLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                >
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    >
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:clickable="true"
+                                        android:focusable="true"
+                                        android:foreground="?android:selectableItemBackground"
+                                        >
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Merit List"
+                                            android:textStyle="bold"
+                                            android:textSize="17sp"
+                                            android:textColor="@color/black"
+                                            android:textAlignment="center"
+                                            android:layout_marginTop="10dp"
+                                            />
+
+                                        <de.hdodenhof.circleimageview.CircleImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="120dp"
+                                            android:src="@drawable/main_meritlist"
+                                            />
+
+                                    </LinearLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="By\nGovernment Polytechnic Arvi"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_view_add"
+                    android:baselineAlignBottom="false"
+                    android:src="@drawable/add_image"
+                    android:backgroundTint="#E67E5D"
+                    app:fabSize="normal"
+                    app:layout_anchor="@id/main_appbar"
+                    android:layout_margin="16dp"
+                    app:layout_anchorGravity="center_horizontal|bottom"
+                    android:clickable="true"
+                    android:autofillHints="Edit Your Profile"
+                    />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/nav"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/menu_navigation"
+        android:layout_gravity="start"
+        android:pointerIcon="context_menu"
+        app:insetForeground="@color/trans"
+        android:foreground="@color/trans"
         />
 
-</RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

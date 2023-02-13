@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,8 +70,10 @@ public class com_seeall_Fragment extends Fragment {
     //other components
     ShimmerRecyclerView recyclerView ;
     Complaint_seeall_Adapter adapter ;
-    public static ArrayList<Complaint_Model> complaints ;
+    ArrayList<Complaint_Model> complaints ;
     TextView nodata ;
+    SwipeRefreshLayout refreshLayout ;
+    ProgressBar progressBar ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -159,6 +164,8 @@ public class com_seeall_Fragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.com_seeall_recycler) ;
         nodata = view.findViewById(R.id.com_seeall_nodata) ;
+        refreshLayout = view.findViewById(R.id.com_seeall_refresh) ;
+        progressBar = view.findViewById(R.id.com_seeall_progress) ;
         complaints = new ArrayList<>() ;
         adapter = new Complaint_seeall_Adapter(getActivity() , complaints) ;
         recyclerView.setAdapter(adapter);
@@ -166,6 +173,32 @@ public class com_seeall_Fragment extends Fragment {
         recyclerView.showShimmerAdapter();
 
         loadAllData() ;
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(filter_username.trim().equals("")){
+                    loadAllData();
+                }
+                else
+                {
+                    getComplaintsByUsername(filter_username);
+                }
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
+//        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//        });
 
     }
 
@@ -183,6 +216,8 @@ public class com_seeall_Fragment extends Fragment {
     }
 
     private void loadAllData(){
+        complaints.clear();
+        GlobalData.complaints.clear();
         ArrayList<String> keys = new ArrayList<>() ;
         nodata.setVisibility(View.GONE);
 
