@@ -1,9 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#3303A9F4"
+    android:theme="@style/FeedBack_Theme"
     tools:context=".FeedBack">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/feed_toolbar"
+            android:background="@color/cyandark"
+            app:title="FeedBack"
+            app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/arrow_back"
+            />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Great! Let's get started 🔥"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:backgroundTint="@color/llgrey"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="7dp"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="We are costantly improving our product by listening to your feedback"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please , Highlight the area of concern or provide your valuable suggestions about our app"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:padding="10dp"
+                    />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:minLines="5"
+                    android:hint="Tell us how can we improve our product"
+                    android:gravity="top"
+                    android:background="#5CB8B6B6"
+                    />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:chipIcon="@drawable/add_image"
+                    android:minHeight="48dp"
+                    android:padding="10dp"
+                    android:text="Add Screenshots"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:background="?selectableItemBackground"
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="submit"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/signin_btn_back"
+                    android:backgroundTint="#E82160"
+                    />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

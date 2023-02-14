@@ -83,13 +83,13 @@
                 android:checkable="true"/>
 
             <item
-                android:id="@+id/feedback"
+                android:id="@+id/nav_feedback"
                 android:title="Feedback"
                 android:icon="@drawable/feedback_nav"
                 android:checkable="true"/>
 
             <item
-                android:id="@+id/bug"
+                android:id="@+id/nav_reportbug"
                 android:title="Report Bug"
                 android:icon="@drawable/bug_nav"
                 android:checkable="true"/>

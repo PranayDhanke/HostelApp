@@ -173,6 +173,7 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:id="@+id/main_messlayout"
                                         android:orientation="vertical"
                                         android:clickable="true"
                                         android:focusable="true"
@@ -218,6 +219,7 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:id="@+id/main_complaintlayout"
                                         android:orientation="vertical"
                                         android:clickable="true"
                                         android:focusable="true"
@@ -273,6 +275,7 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:id="@+id/main_resourceslayout"
                                         android:orientation="vertical"
                                         android:clickable="true"
                                         android:focusable="true"
@@ -318,6 +321,7 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:id="@+id/main_meritlayout"
                                         android:orientation="vertical"
                                         android:clickable="true"
                                         android:focusable="true"

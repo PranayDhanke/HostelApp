@@ -47,4 +47,8 @@
         <item name="android:spinnerMode">dialog</item>
     </style>
 
+    <style name="FeedBack_Theme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+
+    </style>
+
 </resources>

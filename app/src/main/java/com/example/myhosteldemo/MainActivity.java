@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseUser fuser ;
     FirebaseDatabase database ;
     FirebaseStorage storage ;
+    FirebaseMessaging messaging ;
 
     //SharedPreferences
     SharedPreferences signinpref ;
@@ -92,6 +95,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Handler pageHandeler = new Handler() ;
     static boolean forward = true ;
 
+    //sharedPreferences
+    SharedPreferences settingpref ;
+    SharedPreferences.Editor set_editor ;
+
+    LinearLayout messLayout , complaintLayout , resourceLayout , meritLayout ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,14 +110,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         signinpref = getSharedPreferences("signin" , MODE_PRIVATE) ;
         editor = signinpref.edit() ;
+        settingpref = getSharedPreferences("settings_pref" , MODE_PRIVATE) ;
+        set_editor = settingpref.edit() ;
 
         mAuth = FirebaseAuth.getInstance() ;
         fuser = mAuth.getCurrentUser() ;
         database = FirebaseDatabase.getInstance() ;
         storage = FirebaseStorage.getInstance() ;
+        messaging = FirebaseMessaging.getInstance() ;
 
         editor.putBoolean(fuser.getUid() , true) ;
         editor.apply();
+
+        performSettingPref() ;
 
         alertDialog = new AlertDialog.Builder(this) ;
 
@@ -131,6 +145,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        if(GlobalData.user != null){
+            preLoadHeader();
+        }
+
+        pageHandeler.postDelayed(runnable , 2000) ;
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pageHandeler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            closedrawer();
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
 
     private void changeContentView() {
         if(GlobalData.user != null){
@@ -176,6 +217,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab = findViewById(R.id.main_view_add) ;
         appBar = findViewById(R.id.main_appbar) ;
         hi = findViewById(R.id.main_toolbar_hi) ;
+        messLayout = findViewById(R.id.main_messlayout) ;
+        complaintLayout = findViewById(R.id.main_complaintlayout) ;
+        resourceLayout = findViewById(R.id.main_resourceslayout) ;
+        meritLayout = findViewById(R.id.main_meritlayout) ;
+
+        setUpLayoutListener() ;
 
         setUpNavigationDrawerMenu() ;
 
@@ -233,6 +280,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent = new Intent(MainActivity.this , Resources.class) ;
                 startActivity(intent);
                 break;
+            case R.id.nav_mess:
+                intent = new Intent(MainActivity.this , Mess_Main.class) ;
+                startActivity(intent);
+                break;
+            case R.id.nav_reportbug:
+                intent = new Intent(MainActivity.this , Report_Bug.class) ;
+                startActivity(intent);
+                break;
+            case R.id.nav_feedback:
+                intent = new Intent(MainActivity.this , FeedBack.class) ;
+                startActivity(intent);
+                break;
+            default:
+                closedrawer();
         }
 
         return false;
@@ -244,16 +305,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void closedrawer() {
         drawerLayout.closeDrawer(GravityCompat.START);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            closedrawer();
-        }
-        else{
-            super.onBackPressed();
-        }
     }
 
     public void preLoadHeader(){
@@ -346,17 +397,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     }
                 });
-    }
-
-
-    @Override
-    protected void onResume() {
-        if(GlobalData.user != null){
-            preLoadHeader();
-        }
-
-        pageHandeler.postDelayed(runnable , 2000) ;
-        super.onResume();
     }
 
     private void logout(){
@@ -469,9 +509,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        pageHandeler.removeCallbacks(runnable);
+    private void performSettingPref(){
+        if(settingpref.getBoolean("Done" , false)){
+            //well done
+        }
+        else{
+            messaging.subscribeToTopic("Mess_Menu") ;
+            messaging.subscribeToTopic("College_Events") ;
+            set_editor.putBoolean("Mess_Menu" , true) ;
+            set_editor.putBoolean("College_Events" , true) ;
+            set_editor.putBoolean("Done" , true) ;
+            set_editor.apply();
+        }
     }
+
+    private void setUpLayoutListener(){
+        messLayout.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this , Mess_Main.class));
+        });
+
+        complaintLayout.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this , Complaints.class));
+        });
+
+        resourceLayout.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this , Resources.class));
+        });
+
+        meritLayout.setOnClickListener(v -> {
+            //startActivity(new Intent(MainActivity.this , .class));
+        });
+    }
+
 }
