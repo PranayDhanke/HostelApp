@@ -119,6 +119,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         storage = FirebaseStorage.getInstance() ;
         messaging = FirebaseMessaging.getInstance() ;
 
+        if(fuser == null){
+            startActivity(new Intent(MainActivity.this , SignIn.class));
+            finish();
+        }
+
         editor.putBoolean(fuser.getUid() , true) ;
         editor.apply();
 
@@ -409,6 +414,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.show() ;
 
                 mAuth.signOut() ;
+                GlobalData.user = null ;
+                GlobalData.fuser = null ;
+                GlobalData.profile = null ;
+                GlobalData.profile_uri = null ;
 
                 startActivity(new Intent(MainActivity.this , SignIn.class));
                 Toast.makeText(MainActivity.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
@@ -456,14 +465,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 super.onPageSelected(position);
                 pageHandeler.removeCallbacks(runnable);
                 pageHandeler.postDelayed(runnable , 2000) ;
-            }
-        });
-
-        viewPager2.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                Toast.makeText(MainActivity.this, "youch", Toast.LENGTH_SHORT).show();
-                return false;
             }
         });
 

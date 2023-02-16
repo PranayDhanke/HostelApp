@@ -74,16 +74,38 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/feed_details"
                     android:padding="10dp"
                     android:minLines="5"
                     android:hint="Tell us how can we improve our product"
                     android:gravity="top"
                     android:background="#5CB8B6B6"
+                    android:textIsSelectable="true"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/feed_selectedimage"
+                    android:singleLine="true"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/black"
+                    android:text="Selected Image : "
+                    android:textAlignment="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textSize="15sp"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:scrollHorizontally="true"
+                    android:scrollbars="horizontal"
+                    android:nestedScrollingEnabled="true"
+                    android:visibility="gone"
                     />
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/feed_addImage"
                     android:layout_gravity="center"
                     app:chipIcon="@drawable/add_image"
                     android:minHeight="48dp"
@@ -92,16 +114,18 @@
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:background="?selectableItemBackground"
+                    android:foreground="?selectableItemBackground"
                     />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/feed_submit"
                     android:text="submit"
                     android:layout_margin="10dp"
                     android:background="@drawable/signin_btn_back"
                     android:backgroundTint="#E82160"
+                    android:foreground="?android:selectableItemBackground"
                     />
 
             </LinearLayout>

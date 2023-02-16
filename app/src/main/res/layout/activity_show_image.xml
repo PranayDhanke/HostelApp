@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ShowImage">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/show_toolbar"
+        android:background="@color/black"
+        app:title="E-Vidyashram"
+        app:titleTextColor="@color/cyandark"
+        app:navigationIcon="@drawable/arrow_back"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:id="@+id/show_image"
+        android:background="@color/black"
+        android:layout_centerVertical="true"
+        android:src="@drawable/backgroundkbv2"
+        />
+
+</RelativeLayout>

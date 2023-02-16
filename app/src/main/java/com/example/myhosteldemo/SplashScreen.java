@@ -50,6 +50,8 @@ public class SplashScreen extends AppCompatActivity {
     SharedPreferences signinpref ;
     SharedPreferences.Editor editor ;
 
+    boolean remember ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class SplashScreen extends AppCompatActivity {
         storage = FirebaseStorage.getInstance() ;
 
         if(fuser != null){
-            boolean remember = signinpref.getBoolean("remember" , false) ;
+                remember = signinpref.getBoolean("remember" , false) ;
                 List list = fuser.getProviderData() ;
                 UserInfo info = (UserInfo) list.get(list.size() - 1) ;
                 String provider = info.getProviderId() ;
@@ -108,13 +110,21 @@ public class SplashScreen extends AppCompatActivity {
 
 
     private void goForNext(FirebaseUser fuser , boolean email){
+        if(!remember && email){
+            startActivity(new Intent(SplashScreen.this , SignIn.class));
+            finish();
+            return;
+        }
+
         if(signinpref.getBoolean(fuser.getUid() , false)){
             preLoadGlobalData();
             end = System.currentTimeMillis() ;
             long time = end - start ;
+
             if(time > 2000){
                // Toast.makeText(this, "In if : " + time, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SplashScreen.this , MainActivity.class));
+                finish();
             }
             else{
                 new Handler().postDelayed(new Runnable() {
@@ -174,7 +184,9 @@ public class SplashScreen extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(SplashScreen.this, "Failed to SignIn try again", Toast.LENGTH_SHORT).show();
                        startActivity(new Intent(SplashScreen.this , SignIn.class));
+                       finish();
                     }
                 });
     }

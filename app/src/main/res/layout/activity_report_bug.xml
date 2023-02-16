@@ -58,6 +58,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/report_handset"
                     android:hint="Handset Name"
                     android:inputType="text"
                     android:padding="10dp"
@@ -118,9 +119,25 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Any Screenshot when it is about to crash or when it crashed :"
+                    android:text="Any Screenshot when it is about to crash or when it crashed (only 1 allowed) :"
                     android:textSize="15sp"
                     android:textAlignment="textStart"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/report_imageselect"
+                    android:text="Selected Images : \n"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"
                     />
 
                 <ImageView
@@ -134,14 +151,6 @@
                     android:background="?selectableItemBackground"
                     />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Selected Images : \n"
-                    android:textSize="15sp"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    />
 
             </LinearLayout>
 
@@ -173,6 +182,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/report_details"
                     android:hint="Details"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
@@ -202,7 +212,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Would you like to contribute more to this?"
+                    android:text="Would you like to contribute more to this? Optional!"
                     android:textSize="15sp"
                     android:textAlignment="textStart"
                     />
@@ -210,27 +220,43 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/report_radiogroup"
                     >
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/report_radioyes"
                         android:text="Yes , I'm willing."
                         />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/report_radiono"
                         android:text="No , not interested."
                         />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/report_radiomaybe"
                         android:text="Maybe , not sure."
                         />
 
                 </RadioGroup>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/report_radioselect"
+                    android:text="No , not interested."
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    />
 
             </LinearLayout>
 
@@ -239,10 +265,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/report_submit"
             android:text="submit"
             android:layout_margin="10dp"
             android:background="@drawable/signin_btn_back"
             android:backgroundTint="#E82160"
+            android:foreground="?android:selectableItemBackground"
             />
 
     </LinearLayout>

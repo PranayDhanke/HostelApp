@@ -53,6 +53,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,6 +73,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -331,7 +333,15 @@ public class SetupAccount extends AppCompatActivity {
                                             }
                                         }
                                         else if(task.getException().getLocalizedMessage().equals("Object does not exist at location.")) {
-                                            url[0] = "";
+                                            List list = fuser.getProviderData() ;
+                                            UserInfo info = (UserInfo) list.get(list.size() - 1) ;
+                                            String provider = info.getProviderId() ;
+                                            if(provider.contains("google.com") || provider.contains("facebook.com")){
+                                                url[0] = fuser.getPhotoUrl().toString() ;
+                                            }
+                                            else{
+                                                url[0] = "";
+                                            }
                                         }
                                         else{
                                             Toast.makeText(SetupAccount.this, "This is storage\nFailed to store data\n" + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -576,7 +586,7 @@ public class SetupAccount extends AppCompatActivity {
             mobile.setText(GlobalData.user.getPhone());
             enroll.setText(GlobalData.user.getEnroll());
             branch.setSelection(branches.indexOf(GlobalData.user.getBranch()));
-            Toast.makeText(this, "Size : " + branches.size() + "index : " + branches.indexOf(GlobalData.user.getBranch()) +"\nData : " + GlobalData.user.getBranch(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Size : " + branches.size() + "index : " + branches.indexOf(GlobalData.user.getBranch()) +"\nData : " + GlobalData.user.getBranch(), Toast.LENGTH_SHORT).show();
             year.setSelection(years.indexOf(GlobalData.user.getYear()));
             gender.setSelection(genders.indexOf(GlobalData.user.getGender()));
             dob.setText(GlobalData.user.getDob());
@@ -600,7 +610,7 @@ public class SetupAccount extends AppCompatActivity {
                     .addListener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            Toast.makeText(SetupAccount.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(SetupAccount.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
                             return false;
                         }
 
