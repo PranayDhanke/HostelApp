@@ -110,6 +110,8 @@ public class SplashScreen extends AppCompatActivity {
 
 
     private void goForNext(FirebaseUser fuser , boolean email){
+        preLoadGlobalData();
+
         if(!remember && email){
             startActivity(new Intent(SplashScreen.this , SignIn.class));
             finish();
@@ -117,7 +119,6 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         if(signinpref.getBoolean(fuser.getUid() , false)){
-            preLoadGlobalData();
             end = System.currentTimeMillis() ;
             long time = end - start ;
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#3303A9F4"
+    android:theme="@style/FeedBack_Theme"
+    tools:context=".fragments.AdminLoginFragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_login_txt"
+        android:text="Welcome , to admin panel\nLogin here to access all information"
+        android:textColor="@color/red"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/admin_login_txt"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                app:startIconDrawable="@drawable/create_email"
+                app:endIconMode="clear_text"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeColor="@color/red"
+                android:enabled="true"
+                android:layout_margin="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/admin_login_email"
+                    android:inputType="textEmailAddress"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/paasword"
+                android:hint="password"
+                app:boxBackgroundMode="filled"
+                android:layout_margin="10dp"
+                app:boxStrokeColor="@color/red"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/admin_login_password"
+                    android:inputType="textPassword"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/admin_login_remember"
+                android:text="Remember Me?"
+                android:layout_gravity="center"
+                />
+
+           <TextView
+               android:layout_width="100dp"
+               android:layout_height="wrap_content"
+               android:id="@+id/admin_login_login"
+               android:text="Login"
+               android:textSize="15sp"
+               android:textColor="@color/black"
+               android:layout_gravity="center"
+               android:layout_marginTop="10dp"
+               android:layout_marginBottom="10dp"
+               android:padding="10dp"
+               android:textAlignment="center"
+               android:background="@drawable/btn_draweble"
+               android:clickable="true"
+               android:focusable="true"
+               android:foreground="?selectableItemBackground"
+               />
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

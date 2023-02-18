@@ -31,6 +31,18 @@
                 android:icon="@drawable/resources_nav"
                 android:checkable="true"/>
 
+            <item
+                android:id="@+id/nav_admin"
+                android:title="Admin Panel"
+                android:icon="@drawable/admin_svg"
+                android:checkable="true"/>
+
+            <item
+                android:id="@+id/nav_merit"
+                android:title="Merit List"
+                android:icon="@drawable/star_merit"
+                android:checkable="true"/>
+
 <!--            <item-->
 <!--                android:id="@+id/council"-->
 <!--                android:title="Students Council"-->

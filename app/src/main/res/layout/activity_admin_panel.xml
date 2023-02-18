@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminPanel">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_toolbar"
+        android:background="@color/cyandark"
+        app:title="Admin Panel"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/arrow_back"
+        android:layout_alignParentTop="true"
+        />
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_tab_layout"
+        android:layout_below="@id/admin_toolbar"
+        android:background="@color/cyandark"
+        app:tabTextColor="@color/white"
+        app:tabIndicatorColor="@color/grey"
+        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorAnimationMode="linear"
+        app:tabMode="fixed"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WorkSpace"
+            />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/admin_viewpager"
+        android:layout_below="@id/admin_tab_layout"
+        >
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+</RelativeLayout>

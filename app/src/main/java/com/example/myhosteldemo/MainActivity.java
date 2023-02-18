@@ -297,6 +297,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent = new Intent(MainActivity.this , FeedBack.class) ;
                 startActivity(intent);
                 break;
+            case R.id.nav_admin:
+                intent = new Intent(MainActivity.this , AdminPanel.class) ;
+                startActivity(intent);
+                break;
+            case R.id.nav_merit:
+                intent = new Intent(MainActivity.this , Merit_Select.class) ;
+                startActivity(intent);
+                break;
             default:
                 closedrawer();
         }
@@ -538,7 +546,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         meritLayout.setOnClickListener(v -> {
-            //startActivity(new Intent(MainActivity.this , .class));
+            startActivity(new Intent(MainActivity.this , Merit_Select.class));
+        });
+
+        fab.setOnClickListener(v -> {
+            if(GlobalData.isAdmin){
+
+            }
+            else{
+                Toast.makeText(this, "Please login as admin first", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
