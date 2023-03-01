@@ -18,6 +18,19 @@
         android:layout_alignParentTop="true"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/merit_select_nodata"
+        android:text="No Merit Lists Available"
+        android:textColor="@color/red"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

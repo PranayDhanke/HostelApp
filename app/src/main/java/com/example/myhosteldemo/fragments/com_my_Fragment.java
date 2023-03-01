@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.myhosteldemo.Adapter.Complaint_MyComplaints_Adapter;
@@ -117,12 +118,11 @@ public class com_my_Fragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
         if(GlobalData.complaintAdded){
             loadComplaints();
             GlobalData.complaintAdded = false ;
         }
-
+        super.onResume();
     }
 
 }

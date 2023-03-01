@@ -248,9 +248,9 @@ public class Add_Complaint extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(task.isSuccessful()){
+                                                    GlobalData.complaintAdded = true ;
                                                     Toast.makeText(Add_Complaint.this, "Complaint Added successfully", Toast.LENGTH_SHORT).show();
                                                     dialog.dismiss();
-                                                    GlobalData.complaintAdded = true ;
                                                 }
                                                 else{
                                                     Toast.makeText(Add_Complaint.this, "Failed to add complaint", Toast.LENGTH_SHORT).show();
@@ -293,6 +293,7 @@ public class Add_Complaint extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
+                                    GlobalData.complaintAdded = true ;
                                     Toast.makeText(Add_Complaint.this, "Complaint Added successfully", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
                                 }

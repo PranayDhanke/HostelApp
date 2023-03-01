@@ -188,18 +188,6 @@ public class com_seeall_Fragment extends Fragment {
             }
         });
 
-//        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//            }
-//        });
-
     }
 
     @Override
@@ -265,7 +253,7 @@ public class com_seeall_Fragment extends Fragment {
         }
 
         for(int i = 0 ; i < keys.size() ; i++){
-            database.child("Complaints/" + keys.get(i) + "/").orderByChild("time")
+            database.child("Complaints/" + keys.get(i) + "/")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -303,13 +291,6 @@ public class com_seeall_Fragment extends Fragment {
         }
 
         adapter.sortData(filter_completeness , filter_others);
-
-//        AlertUtil.showAlertDialog(getActivity(),
-//                "Filters",
-//                str,
-//                true,
-//                R.drawable.information,
-//                "Ok");
     }
 
     private void getComplaintsByUsername(String filter_username){
@@ -345,7 +326,7 @@ public class com_seeall_Fragment extends Fragment {
     }
 
     private void loadUserComplaints(String key){
-        database.child("Complaints/" + key + "/").orderByChild("time")
+        database.child("Complaints/" + key + "/")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

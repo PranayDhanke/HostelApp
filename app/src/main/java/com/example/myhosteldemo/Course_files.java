@@ -155,7 +155,7 @@ public class Course_files extends AppCompatActivity {
                     File_Adapter adapter = new File_Adapter(Course_files.this , files) ;
                     recyclerView.setAdapter(adapter);
                     recyclerView.hideShimmerAdapter();
-                    Toast.makeText(Course_files.this, "Size = " + size, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Course_files.this, "Size = " + size, Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();
                 }
                 else{
@@ -264,8 +264,8 @@ public class Course_files extends AppCompatActivity {
                        File_model fm = new File_model(file_topic.getText().toString(),
                                file_desc.getText().toString(),
                                FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                               /*GlobalData.user.getEmail() */"tejaspokale9204@gmail.com" ,
-                               /*GlobalData.user.getUsername() */ "Tejas Pokale",
+                               GlobalData.user.getEmail() ,
+                               GlobalData.user.getUsername() ,
                                name.substring(name.lastIndexOf('.') + 1),
                                Integer.parseInt(size),
                                ServerValue.TIMESTAMP,

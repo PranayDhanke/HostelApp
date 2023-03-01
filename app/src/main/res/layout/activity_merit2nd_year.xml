@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3303A9F4"
+    android:theme="@style/FeedBack_Theme"
+    tools:context=".Merit_1st_year">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/merit_2nd_toolbar"
+        android:background="@color/cyandark"
+        app:title="Form Filling 2nd year"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/arrow_back"
+        android:layout_alignParentTop="true"
+        />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/merit_2nd_toolbar"
+        android:layout_marginBottom="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select student type"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        />
+
+                   <RadioGroup
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/merit_2nd_type"
+                       android:padding="10dp"
+                       >
+
+                       <RadioButton
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:id="@+id/merit_2nd_regular"
+                           android:text="I'm regular student"
+                           android:checked="true"
+                           />
+
+                       <RadioButton
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:id="@+id/merit_2nd_direct"
+                           android:text="I'm direct second year student"
+                           />
+
+                   </RadioGroup>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/merit_2nd_card_study"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                android:visibility="gone"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="I've completed"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/merit_2nd_study"
+                        android:padding="10dp"
+                        >
+
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_2nd_12th"
+                            android:text="12th class"
+                            android:checked="true"
+                            />
+
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_2nd_ITI"
+                            android:text="ITI"
+                            />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/merit_2nd_ll_1styear"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Information about 1st Year"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Percentage of 1st semester"
+                            app:endIconMode="none"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeColor="@color/red"
+                            android:enabled="true"
+                            android:layout_margin="10dp"
+                            app:suffixText=" %"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                            >
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/merit_3rd_3percent"
+                                android:inputType="numberDecimal"
+                                android:maxLength="5"
+                                android:singleLine="true"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Percentage of 2nd semester"
+                            app:endIconMode="none"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeColor="@color/red"
+                            android:enabled="true"
+                            android:layout_margin="10dp"
+                            app:suffixText=" %"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                            >
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/merit_3rd_4percent"
+                                android:inputType="numberDecimal"
+                                android:maxLength="5"
+                                android:singleLine="true"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Marksheet of 1st semester"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="For confirming your marks and percentage"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:id="@+id/merit_3rd_3marksheet"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"
+                            android:layout_margin="10dp"
+                            android:background="@color/lightgrey"
+                            android:visibility="gone"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_3rd_3chip"
+                            android:text="Select Image"
+                            app:chipIcon="@drawable/image_svg"
+                            android:layout_gravity="center_horizontal"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?selectableItemBackground"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Marksheet of 2nd semester"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="For confirming your marks and percentage"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:id="@+id/merit_3rd_4marksheet"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"
+                            android:layout_margin="10dp"
+                            android:background="@color/lightgrey"
+                            android:visibility="gone"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_3rd_4chip"
+                            android:text="Select Image"
+                            app:chipIcon="@drawable/image_svg"
+                            android:layout_gravity="center_horizontal"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?selectableItemBackground"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/merit_2nd_ll_12th"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Information about 12th"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Marks obtained in 12th"
+                            app:endIconMode="none"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeColor="@color/red"
+                            android:enabled="true"
+                            android:layout_margin="10dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                            >
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/merit_1st_tenmark"
+                                android:inputType="number"
+                                android:maxLength="3"
+                                android:singleLine="true"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Total marks of 12th board"
+                            app:endIconMode="none"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeColor="@color/red"
+                            android:enabled="true"
+                            android:layout_margin="10dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                            >
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/merit_1st_outof"
+                                android:inputType="number"
+                                android:maxLength="3"
+                                android:singleLine="true"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_1st_percentage"
+                            android:text="Percentage :- "
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_marginBottom="10dp"
+                            android:enabled="false"
+                            android:visibility="gone"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Marksheet of 12th class"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="For confirming your marks and percentage"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:id="@+id/merit_1st_marksheetimage"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"
+                            android:layout_margin="10dp"
+                            android:background="@color/lightgrey"
+                            android:visibility="gone"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_1st_marksheetchip"
+                            android:text="Select Image"
+                            app:chipIcon="@drawable/image_svg"
+                            android:layout_gravity="center_horizontal"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?selectableItemBackground"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/merit_2nd_ll_ITI"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Information about ITI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Percentage of final year"
+                            app:endIconMode="none"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeColor="@color/red"
+                            android:enabled="true"
+                            android:layout_margin="10dp"
+                            app:suffixText=" %"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                            >
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/merit_3rd_3percddgent"
+                                android:inputType="numberDecimal"
+                                android:maxLength="5"
+                                android:singleLine="true"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Marksheet of Final Year ITI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="For confirming your marks and percentage"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:layout_marginTop="10dp"
+                            />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:id="@+id/merit_1st_marksheetiddmage"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"
+                            android:layout_margin="10dp"
+                            android:background="@color/lightgrey"
+                            android:visibility="gone"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_1st_markvggsheetchip"
+                            android:text="Select Image"
+                            app:chipIcon="@drawable/image_svg"
+                            android:layout_gravity="center_horizontal"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?selectableItemBackground"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Allotment Letter"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="For confirmation that you are one of the student of this college"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/merit_3rd_allotmentimage"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"
+                        android:layout_margin="10dp"
+                        android:background="@color/lightgrey"
+                        android:visibility="gone"
+                        />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/merit_3rd_allotmentchip"
+                        android:text="Select Image"
+                        app:chipIcon="@drawable/image_svg"
+                        android:layout_gravity="center_horizontal"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?selectableItemBackground"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Aadhar Card"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="For confirmation of all the details you have mentioned"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/merit_3rd_aadharimage"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"
+                        android:layout_margin="10dp"
+                        android:background="@color/lightgrey"
+                        android:visibility="gone"
+                        />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/merit_3rd_aadharchip"
+                        android:text="Select Image"
+                        app:chipIcon="@drawable/image_svg"
+                        android:layout_gravity="center_horizontal"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?selectableItemBackground"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/merit_3rd_view"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/signin_btn_back"
+                    android:text="View form"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/merit_3rd_submit"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/signin_btn_back"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="10dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

@@ -38,6 +38,7 @@ public class GlobalData {
     public static FirebaseUser fuser ;
     public static File_model fm ;
     public static boolean complaintAdded = false ;
+    public static boolean meritListAdded = false ;
     public static String filter_completeness = "" ;
     public static ArrayList<Complaint_Model> complaints = new ArrayList<>() ;
     public static boolean isAdmin = false ;

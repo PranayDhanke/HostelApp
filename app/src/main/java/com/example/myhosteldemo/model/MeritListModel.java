@@ -1,19 +1,28 @@
 package com.example.myhosteldemo.model;
 
-public class MeritListModel {
+import java.io.Serializable;
+
+public class MeritListModel implements Serializable {
     String createdBy ;
     String startDate , endDate ;
+    long startLong , endLong ;
     String title , description ;
+    boolean opened ;
+    long createDate ;
 
     public MeritListModel() {
     }
 
-    public MeritListModel(String createdBy, String startDate, String endDate, String title, String description) {
+    public MeritListModel(String createdBy, String startDate, String endDate, long startLong, long endLong, String title, String description, boolean opened, long createDate) {
         this.createdBy = createdBy;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.startLong = startLong;
+        this.endLong = endLong;
         this.title = title;
         this.description = description;
+        this.opened = opened;
+        this.createDate = createDate;
     }
 
     public String getCreatedBy() {
@@ -40,6 +49,22 @@ public class MeritListModel {
         this.endDate = endDate;
     }
 
+    public long getStartLong() {
+        return startLong;
+    }
+
+    public void setStartLong(long startLong) {
+        this.startLong = startLong;
+    }
+
+    public long getEndLong() {
+        return endLong;
+    }
+
+    public void setEndLong(long endLong) {
+        this.endLong = endLong;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -54,5 +79,21 @@ public class MeritListModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isOpened() {
+        return opened;
+    }
+
+    public void setOpened(boolean opened) {
+        this.opened = opened;
+    }
+
+    public long getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(long createDate) {
+        this.createDate = createDate;
     }
 }

@@ -343,7 +343,7 @@ class NewestTimeSorter implements Comparator<Complaint_Model> {
 
     @Override
     public int compare(Complaint_Model cm1, Complaint_Model cm2) {
-        return (int) (cm1.getTime() - cm2.getTime());
+        return (int) (cm2.getTime() - cm1.getTime());
     }
 }
 
@@ -351,7 +351,7 @@ class OldestTimeSorter implements Comparator<Complaint_Model>{
 
     @Override
     public int compare(Complaint_Model cm1, Complaint_Model cm2) {
-        return (int) (cm2.getTime() - cm1.getTime());
+        return (int) (cm1.getTime() - cm2.getTime());
     }
 }
 

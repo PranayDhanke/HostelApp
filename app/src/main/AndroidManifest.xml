@@ -26,6 +26,27 @@
         android:theme="@style/Theme.MyHostelDemo"
         tools:targetApi="31">
         <activity
+            android:name=".Merit_3rd_Year"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Merit_2nd_Year"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Merit_1st_year"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Merit_AddList"
             android:exported="false">
             <meta-data

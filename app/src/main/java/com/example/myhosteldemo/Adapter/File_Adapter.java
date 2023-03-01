@@ -180,7 +180,7 @@ public class File_Adapter extends RecyclerView.Adapter<File_Adapter.FileViewHold
     private  void view(File_model fm){
         String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + File.separator + fm.getTopic() + "." + fm.getType() ;
         File file = new File(dir) ;
-        Toast.makeText(context, "Dir = " + dir , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Dir = " + dir , Toast.LENGTH_SHORT).show();
         if(file.exists()){
             Uri path = FileProvider.getUriForFile(context ,
                     context.getApplicationContext().getPackageName() + ".provider" ,

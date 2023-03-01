@@ -16,6 +16,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,10 +41,15 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.myhosteldemo.Adapter.Main_viewpager_adapter;
+import com.example.myhosteldemo.Utility.AlertUtil;
 import com.example.myhosteldemo.Utility.GlobalData;
+import com.example.myhosteldemo.model.MainActivity_ImageModel;
 import com.example.myhosteldemo.model.Main_Viewpager_Model;
 import com.example.myhosteldemo.model.User;
+import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,8 +60,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.ArrayList;
@@ -70,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseDatabase database ;
     FirebaseStorage storage ;
     FirebaseMessaging messaging ;
+    FirebaseFirestore firestore ;
 
     //SharedPreferences
     SharedPreferences signinpref ;
@@ -101,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     LinearLayout messLayout , complaintLayout , resourceLayout , meritLayout ;
 
+    static ProgressDialog uploadDialog ;
+    View root ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +135,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database = FirebaseDatabase.getInstance() ;
         storage = FirebaseStorage.getInstance() ;
         messaging = FirebaseMessaging.getInstance() ;
+        firestore = FirebaseFirestore.getInstance() ;
+
+        uploadDialog = new ProgressDialog(MainActivity.this) ;
+        viewmodel = new ArrayList<>() ;
+        view_adapter = new Main_viewpager_adapter(this , viewmodel) ;
+        root = LayoutInflater.from(this).inflate(R.layout.main_viewpager , null)  ;
 
         if(fuser == null){
             startActivity(new Intent(MainActivity.this , SignIn.class));
@@ -163,8 +186,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onPause() {
-        super.onPause();
         pageHandeler.removeCallbacks(runnable);
+        new Handler().postDelayed(this::closedrawer, 1000) ;
+
+        super.onPause();
     }
 
     @Override
@@ -177,8 +202,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode != RESULT_OK)
+            return;
+        if(data == null)
+            return ;
 
-    private void changeContentView() {
+        if(requestCode == 100){
+            Uri uri = data.getData() ;
+            uploadImage(uri) ;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void changeContentView(){
         if(GlobalData.user != null){
             initialiseAll();
             return ;
@@ -197,11 +236,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        try {
-                            throw new Exception("Canceled") ;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        alertDialog.setTitle("Loading Result") ;
+                        alertDialog.setMessage("Failed to load your data") ;
+                        alertDialog.setCancelable(false) ;
+                        alertDialog.setIcon(R.drawable.error) ;
+                        alertDialog.setPositiveButton("Retry" , new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                changeContentView();
+                            }
+                        }) ;
+                        alertDialog.show() ;
                     }
                 });
     }
@@ -256,8 +302,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        String itemName = item.getTitle().toString() ;
-        closedrawer() ;
+        //closedrawer() ;
         Intent intent ;
 
         switch (item.getItemId()){
@@ -353,7 +398,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .addListener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            Toast.makeText(MainActivity.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MainActivity.this, "Failed to load Profile Picture\n" + e, Toast.LENGTH_LONG).show();
                             return false;
                         }
 
@@ -435,47 +480,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private  void loadViewpager(){
-        viewmodel = new ArrayList<>() ;
-        view_adapter = new Main_viewpager_adapter(this , viewmodel) ;
-
-        View root = LayoutInflater.from(this).inflate(R.layout.main_viewpager , null)  ;
-
-        for(int i = 0 ; i < 5 ; i++){
-            viewmodel.add(new Main_Viewpager_Model(root.findViewById(R.id.main_view_image) , null , R.drawable.backgroundkbv2)) ;
-        }
-
-        viewmodel.add(new Main_Viewpager_Model(root.findViewById(R.id.main_view_image) , null , -1)) ;
-
-        viewPager2.setAdapter(view_adapter);
-        indicator.attachTo(viewPager2);
-        viewPager2.setOffscreenPageLimit(3);
-        viewPager2.setClipChildren(false);
-        viewPager2.setClipToPadding(false);
-        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
-        CompositePageTransformer transformer = new CompositePageTransformer() ;
-        transformer.addTransformer(new MarginPageTransformer(40));
-        transformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position) ;
-                page.setScaleY(0.85f + r * 0.14f);
-            }
-        });
-        viewPager2.setPageTransformer(transformer);
-        view_adapter.notifyDataSetChanged();
-
-
-
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                pageHandeler.removeCallbacks(runnable);
-                pageHandeler.postDelayed(runnable , 2000) ;
-            }
-        });
-
+        firestore.collection("Images")
+                .orderBy("uploadTime" , Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null){
+                            viewmodel.set(0 , new Main_Viewpager_Model(root.findViewById(R.id.main_view_image) , null , R.drawable.college_image)) ;
+                            viewPager2.setAdapter(view_adapter);
+                            view_adapter.notifyDataSetChanged();
+                            Toast.makeText(MainActivity.this, "Unable to load Sliding Images", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            updateViewpager(value) ;
+                        }
+                    }
+                }) ;
     }
 
     public static Runnable runnable = new Runnable() {
@@ -551,12 +571,156 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fab.setOnClickListener(v -> {
             if(GlobalData.isAdmin){
+                AlertDialog.Builder al = new AlertDialog.Builder(this) ;
+                al.setTitle("Select from Options") ;
+                al.setMessage("What you like to do ?") ;
+                al.setPositiveButton("Add Image", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ImagePicker.Companion
+                                .with(MainActivity.this)
+                                .crop()
+                                .maxResultSize(1080,1080)
+                                .compress(1024)
+                                .start(100);
+                        dialogInterface.dismiss();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }) ;
 
+                al.show() ;
             }
             else{
                 Toast.makeText(this, "Please login as admin first", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void uploadImage(Uri uri){
+        long time = System.currentTimeMillis() ;
+
+        uploadDialog.setTitle("Uploading....");
+        uploadDialog.setMessage("Please wait");
+        uploadDialog.setCancelable(true);
+        uploadDialog.show();
+
+        storage.getReference().child("Images")
+                .child(String.valueOf(time))
+                .putFile(uri)
+                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if(task.isSuccessful()){
+                            task.getResult().getStorage().getDownloadUrl()
+                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            uploadToFirestore(uri.toString() , time) ;
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            AlertUtil.showAlertDialog(MainActivity.this,
+                                                    "Failure",
+                                                    "Failed to upload Image",
+                                                    true,
+                                                    R.drawable.error,
+                                                    "Ok");
+                                            uploadDialog.dismiss();
+                                        }
+                                    }) ;
+                        }
+                        else{
+                            AlertUtil.showAlertDialog(MainActivity.this,
+                                    "Failure",
+                                    "Failed to upload Image",
+                                    true,
+                                    R.drawable.error,
+                                    "Ok");
+                            uploadDialog.dismiss();
+                        }
+                    }
+                }) ;
+    }
+
+    private void uploadToFirestore(String url , long time){
+        MainActivity_ImageModel model = new MainActivity_ImageModel(url , time) ;
+
+        firestore.collection("Images")
+                .document(String.valueOf(time))
+                .set(model)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        loadViewpager();
+                        AlertUtil.showAlertDialog(MainActivity.this,
+                                "Success",
+                                "Image uploaded successfully",
+                                true,
+                                R.drawable.information,
+                                "Ok");
+                        uploadDialog.dismiss();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        AlertUtil.showAlertDialog(MainActivity.this,
+                                "Failure",
+                                "Failed to upload Image",
+                                true,
+                                R.drawable.error,
+                                "Ok");
+                        uploadDialog.dismiss();
+                    }
+                }) ;
+    }
+
+    private void updateViewpager(QuerySnapshot value){
+        viewmodel.clear();
+        viewmodel.add(new Main_Viewpager_Model(root.findViewById(R.id.main_view_image) , null , R.drawable.college_image)) ;
+
+        for(DocumentSnapshot data : value.getDocuments()){
+            MainActivity_ImageModel model = data.toObject(MainActivity_ImageModel.class) ;
+            viewmodel.add(new Main_Viewpager_Model(root.findViewById(R.id.main_view_image) , model.getUrl() , 0)) ;
+        }
+
+        viewPager2.setAdapter(view_adapter);
+        indicator.attachTo(viewPager2);
+        viewPager2.setOffscreenPageLimit(3);
+        viewPager2.setClipChildren(false);
+        viewPager2.setClipToPadding(false);
+        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer transformer = new CompositePageTransformer() ;
+        transformer.addTransformer(new MarginPageTransformer(40));
+        transformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position) ;
+                page.setScaleY(0.85f + r * 0.14f);
+            }
+        });
+        viewPager2.setPageTransformer(transformer);
+        view_adapter.notifyDataSetChanged();
+
+
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                pageHandeler.removeCallbacks(runnable);
+                pageHandeler.postDelayed(runnable , 2000) ;
+            }
+        });
+
+    }
+
 
 }
