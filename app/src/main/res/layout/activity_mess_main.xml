@@ -1,9 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Mess_Main">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mess_toolbar"
+        android:background="@color/cyandark"
+        app:title="Mess"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/arrow_back"
+        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/mess_day"
+        android:background="#9803F4"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Sunday"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="#08FF00"
+        android:textStyle="bold"
+        android:layout_below="@id/mess_toolbar"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:orientation="vertical"
+        android:layout_below="@id/mess_day"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mess_break_card"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="10dp"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="220dp"
+                        android:id="@+id/mess_break_break"
+                        android:text="B\nr\ne\na\nk\nf\na\ns\nt"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        android:background="@color/cyandark"
+                        android:textColor="@color/white"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:id="@+id/mess_break_time"
+                        android:background="@color/white"
+                        android:text="08:30 Am - 10:30 Am"
+                        android:textSize="20sp"
+                        android:layout_toRightOf="@id/mess_break_break"
+                        android:gravity="center"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:id="@+id/mess_break_sep"
+                        android:layout_toRightOf="@id/mess_break_break"
+                        android:layout_below="@id/mess_break_time"
+                        android:background="@color/grey"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_below="@id/mess_break_sep"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toRightOf="@id/mess_break_break"
+                        android:scrollbars="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/mess_break_btext"
+                            android:gravity="center"
+                            android:text="Maggie 1 plate,\nallo chutney,\nUpma,\nSheera,\nNamkeen,\nMoong Sprouts\nOmeletteMaggie 1 plate,\nallo chutney,\nUpma,\nSheera,\nNamkeen,\nMoong Sprouts\nOmelette"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mess_lunch_card"
+                app:layout_constraintTop_toBottomOf="@id/mess_break_card"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="10dp"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="220dp"
+                        android:id="@+id/mess_lunch_lunch"
+                        android:text="L\nu\nn\nc\nh"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        android:background="@color/cyandark"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:id="@+id/mess_lunch_time"
+                        android:background="@color/white"
+                        android:text="10:30 AM - 12:30 Pm"
+                        android:textSize="20sp"
+                        android:layout_toRightOf="@id/mess_lunch_lunch"
+                        android:gravity="center"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:id="@+id/mess_lunch_sep"
+                        android:layout_toRightOf="@id/mess_lunch_lunch"
+                        android:layout_below="@id/mess_lunch_time"
+                        android:background="@color/grey"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_below="@id/mess_lunch_sep"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toRightOf="@id/mess_lunch_lunch"
+                        android:scrollbars="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/mess_lunch_ltext"
+                            android:gravity="center"
+                            android:text="Maggie 1 plate,\nallo chutney,\nUpma,\nSheera,\nNamkeen,\nMoong Sprouts\nOmeletteMaggie 1 plate,\nallo chutney,\nUpma,\nSheera,\nNamkeen,\nMoong Sprouts\nOmelette"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mess_dinner_card"
+                app:layout_constraintTop_toBottomOf="@id/mess_lunch_card"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="10dp"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="220dp"
+                        android:id="@+id/mess_dinner_dinner"
+                        android:text="D\ni\nn\nn\ne\nr"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        android:background="@color/cyandark"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:id="@+id/mess_dinner_time"
+                        android:background="@color/white"
+                        android:text="06:30 Pm - 10:30 Pm"
+                        android:textSize="20sp"
+                        android:layout_toRightOf="@id/mess_dinner_dinner"
+                        android:gravity="center"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:id="@+id/mess_dinner_sep"
+                        android:layout_toRightOf="@id/mess_dinner_dinner"
+                        android:layout_below="@id/mess_dinner_time"
+                        android:background="@color/grey"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_below="@id/mess_dinner_sep"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toRightOf="@id/mess_dinner_dinner"
+                        android:scrollbars="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/mess_dinner_dtext"
+                            android:gravity="center"
+                            android:text="Maggie 1 plate,\nallo chutney,\nUpma,\nSheera,\nNamkeen,\nMoong Sprouts\nOmeletteMaggie 1 plate,\nallo chutney,\nUpma,\nSheera,\nNamkeen,\nMoong Sprouts\nOmelette"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mess_menu_fab"
+        android:src="@drawable/mess_nav"
+        app:fabSize="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/cyandark"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:selectableItemBackground"
+        />
+
+</RelativeLayout>

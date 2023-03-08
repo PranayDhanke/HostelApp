@@ -320,8 +320,8 @@ public class SetupAccount extends AppCompatActivity {
                         }
                         //getting image url
                         storage.getReference().child("Profile_Pictures/").child(fuser.getUid())
-                                .getDownloadUrl().
-                                addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                .getDownloadUrl()
+                                .addOnCompleteListener(new OnCompleteListener<Uri>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Uri> task) {
                                         if(task.isSuccessful()) {
@@ -444,12 +444,16 @@ public class SetupAccount extends AppCompatActivity {
         progress.setMax(100);
         progress.setCanceledOnTouchOutside(false);
 
-        String path = uri.getPath().toString() ;
-        String name = path.substring(path.lastIndexOf("/")) ;
+//        String path = uri.getPath().toString() ;
+//        String name = path.substring(path.lastIndexOf("/")) ;
+
+//        StorageReference reference = storage.getReference()
+//                .child("Profile_Pictures")
+//                .child(fuser.getUid() + "/" + name) ;
 
         StorageReference reference = storage.getReference()
                 .child("Profile_Pictures")
-                .child(fuser.getUid() + "/" + name) ;
+                .child(fuser.getUid()) ;
 
         progress.show();
 
@@ -603,7 +607,7 @@ public class SetupAccount extends AppCompatActivity {
     }
 
     private void getProfileToImage(String url){
-        if(url != null && url != ""){
+        if(url != null && !url.equals("")){
             Glide.with(SetupAccount.this)
                     .load(url)
                     .placeholder(R.drawable.profile_pic3)

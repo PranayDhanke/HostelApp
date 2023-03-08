@@ -1,6 +1,7 @@
 package com.example.myhosteldemo.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.myhosteldemo.MainActivity;
 import com.example.myhosteldemo.R;
+import com.example.myhosteldemo.ShowImage;
 import com.example.myhosteldemo.model.Complaint_MyCom_Viewpager_Model;
 import com.example.myhosteldemo.model.Main_Viewpager_Model;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -50,12 +52,24 @@ public class Main_viewpager_adapter extends RecyclerView.Adapter<Main_viewpager_
         loadImage(context , holder , vm.getUrl() , vm.getId());
 
         holder.imageView.setOnClickListener(v -> {
-            if(holder.imageView.getScaleType().equals(ImageView.ScaleType.FIT_CENTER)){
-                holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            if(holder.imageView.getScaleType().equals(ImageView.ScaleType.FIT_CENTER)){
+//                holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            }
+//            else{
+//                holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//            }
+            Intent intent = new Intent(context, ShowImage.class) ;
+            if(vm.getUrl() != null){
+                intent.putExtra("url" , vm.getUrl()) ;
             }
-            else{
-                holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            else if(vm.getId() > 0){
+                intent.putExtra("id" , vm.getId()) ;
             }
+
+            if(vm.getId() != -1){
+                context.startActivity(intent);
+            }
+
         });
 
         holder.imageView.setOnLongClickListener(v -> {

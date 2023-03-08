@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.myhosteldemo.Utility.GlobalData;
 
 public class ShowImage extends AppCompatActivity {
@@ -35,7 +36,21 @@ public class ShowImage extends AppCompatActivity {
         Intent intent = getIntent() ;
 
         Uri uri = intent.getParcelableExtra("Image") ;
-        image.setImageURI(uri);
+        String url = intent.getStringExtra("url") ;
+        int id = intent.getIntExtra("id" , 0) ;
+
+        if(uri != null){
+            image.setImageURI(uri);
+        }
+        else if(url != null){
+            Glide.with(this)
+                    .load(url)
+                    .into(image) ;
+        }
+        else if(id != 0){
+            image.setImageResource(id) ;
+        }
+
     }
 
     @Override

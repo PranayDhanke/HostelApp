@@ -76,7 +76,7 @@ public class Complaint_MyComplaints_Adapter extends RecyclerView.Adapter<Complai
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Complaint_Model cm = complaints.get(position) ;
 
-        holder.profile.setImageResource(R.drawable.user_modern);
+        holder.profile.setImageResource(R.drawable.profile_pic3);
         holder.name.setText(cm.getCom_by());
         holder.date.setText(sdf.format(new Date(cm.getTime())));
         holder.topic.setText(cm.getTopic());
@@ -91,7 +91,7 @@ public class Complaint_MyComplaints_Adapter extends RecyclerView.Adapter<Complai
                 holder.name.setText(user.getUsername());
                 Glide.with(context)
                         .load(user.getProfile())
-                        .placeholder(R.drawable.user_modern)
+                        .placeholder(R.drawable.profile_pic3)
                         .into(holder.profile) ;
             }
 

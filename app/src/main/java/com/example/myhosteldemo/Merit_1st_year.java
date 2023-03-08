@@ -150,7 +150,9 @@ public class Merit_1st_year extends AppCompatActivity {
         });
 
         view.setOnClickListener(v -> {
-            Toast.makeText(this, "Yet to implement", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Yet to implement", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this , View_Form.class) ;
+            startActivity(intent);
         });
 
         submit.setOnClickListener(v -> {

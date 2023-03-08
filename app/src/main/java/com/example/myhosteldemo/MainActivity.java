@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getProfileToImage(String url){
-        if(url != null && url != ""){
+        if(url != null && !url.equals("")){
             Glide.with(MainActivity.this)
                     .load(url)
                     .placeholder(R.drawable.profile_pic3)
@@ -423,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addListener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        //Toast.makeText(MainActivity.this, "No Profile picture set", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "No Profile picture set\n"+e.getMessage(), Toast.LENGTH_SHORT).show();
                         return false;
                     }
 
