@@ -192,7 +192,7 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/merit_3rd_3percent"
+                                android:id="@+id/merit_2nd_1percent"
                                 android:inputType="numberDecimal"
                                 android:maxLength="5"
                                 android:singleLine="true"
@@ -217,7 +217,7 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/merit_3rd_4percent"
+                                android:id="@+id/merit_2nd_2percent"
                                 android:inputType="numberDecimal"
                                 android:maxLength="5"
                                 android:singleLine="true"
@@ -267,8 +267,8 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:id="@+id/merit_3rd_3marksheet"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_2nd_1marksheet"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
                             android:layout_margin="10dp"
@@ -279,7 +279,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/merit_3rd_3chip"
+                            android:id="@+id/merit_2nd_1chip"
                             android:text="Select Image"
                             app:chipIcon="@drawable/image_svg"
                             android:layout_gravity="center_horizontal"
@@ -330,8 +330,8 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:id="@+id/merit_3rd_4marksheet"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_2nd_2marksheet"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
                             android:layout_margin="10dp"
@@ -342,7 +342,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/merit_3rd_4chip"
+                            android:id="@+id/merit_2nd_2chip"
                             android:text="Select Image"
                             app:chipIcon="@drawable/image_svg"
                             android:layout_gravity="center_horizontal"
@@ -405,7 +405,7 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/merit_1st_tenmark"
+                                android:id="@+id/merit_2nd_12mark"
                                 android:inputType="number"
                                 android:maxLength="3"
                                 android:singleLine="true"
@@ -416,7 +416,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Total marks of 12th board"
+                            android:hint="Percentage"
                             app:endIconMode="none"
                             app:boxBackgroundMode="filled"
                             app:boxStrokeWidth="2dp"
@@ -429,26 +429,13 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/merit_1st_outof"
-                                android:inputType="number"
-                                android:maxLength="3"
+                                android:id="@+id/merit_2nd_12percent"
+                                android:inputType="numberDecimal"
+                                android:maxLength="5"
                                 android:singleLine="true"
                                 />
 
                         </com.google.android.material.textfield.TextInputLayout>
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/merit_1st_percentage"
-                            android:text="Percentage :- "
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:layout_marginBottom="10dp"
-                            android:enabled="false"
-                            android:visibility="gone"
-                            />
 
                     </LinearLayout>
 
@@ -492,8 +479,8 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:id="@+id/merit_1st_marksheetimage"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_2nd_12marksheetimage"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
                             android:layout_margin="10dp"
@@ -504,7 +491,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/merit_1st_marksheetchip"
+                            android:id="@+id/merit_2nd_12marksheetchip"
                             android:text="Select Image"
                             app:chipIcon="@drawable/image_svg"
                             android:layout_gravity="center_horizontal"
@@ -568,7 +555,7 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/merit_3rd_3percddgent"
+                                android:id="@+id/merit_2nd_itipercent"
                                 android:inputType="numberDecimal"
                                 android:maxLength="5"
                                 android:singleLine="true"
@@ -618,8 +605,8 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:id="@+id/merit_1st_marksheetiddmage"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/merit_2nd_itimarksheetiddmage"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
                             android:layout_margin="10dp"
@@ -630,7 +617,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/merit_1st_markvggsheetchip"
+                            android:id="@+id/merit_2nd_itimarkvggsheetchip"
                             android:text="Select Image"
                             app:chipIcon="@drawable/image_svg"
                             android:layout_gravity="center_horizontal"
@@ -684,8 +671,8 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:id="@+id/merit_3rd_allotmentimage"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/merit_2nd_allotmentimage"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
                         android:layout_margin="10dp"
@@ -696,7 +683,7 @@
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/merit_3rd_allotmentchip"
+                        android:id="@+id/merit_2nd_allotmentchip"
                         android:text="Select Image"
                         app:chipIcon="@drawable/image_svg"
                         android:layout_gravity="center_horizontal"
@@ -747,8 +734,8 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:id="@+id/merit_3rd_aadharimage"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/merit_2nd_aadharimage"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
                         android:layout_margin="10dp"
@@ -759,7 +746,7 @@
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/merit_3rd_aadharchip"
+                        android:id="@+id/merit_2nd_aadharchip"
                         android:text="Select Image"
                         app:chipIcon="@drawable/image_svg"
                         android:layout_gravity="center_horizontal"
@@ -781,7 +768,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/merit_3rd_view"
+                    android:id="@+id/merit_2nd_view"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -794,7 +781,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/merit_3rd_submit"
+                    android:id="@+id/merit_2nd_submit"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"

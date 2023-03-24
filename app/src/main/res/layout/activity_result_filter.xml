@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#460048FF"
+    tools:context=".Result_Filter">
+
+     <androidx.cardview.widget.CardView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_centerInParent="true"
+         android:layout_margin="10dp"
+         app:cardCornerRadius="10dp"
+         app:cardElevation="10dp"
+         >
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             >
+
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@color/cyandark"
+                 android:padding="10dp"
+                 android:text="Select Filters"
+                 android:textColor="@color/white"
+                 android:textSize="25dp"
+                 android:textStyle="bold"
+                 android:textAlignment="center"
+                 />
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:weightSum="2"
+                 android:padding="10dp"
+                 >
+
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="Year of Study"
+                     android:gravity="center"
+                     android:layout_gravity="center"
+                     android:textSize="20sp"
+                     android:textColor="@color/black"
+                     android:drawableTop="@drawable/year"
+                     />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                       <RadioGroup
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:id="@+id/result_filter_yeargroup"
+                           >
+
+                           <RadioButton
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:text="1st year"
+                               android:id="@+id/result_filter_year1"
+                               />
+
+                           <RadioButton
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:text="2nd year"
+                               android:id="@+id/result_filter_year2"
+                               />
+
+                           <RadioButton
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:text="3rd year"
+                               android:id="@+id/result_filter_year3"
+                               />
+
+                       </RadioGroup>
+                    </LinearLayout>
+
+             </LinearLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="2dp"
+                 android:background="@color/grey"
+                 />
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:weightSum="2"
+                 android:padding="10dp"
+                 >
+
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="Gender"
+                     android:gravity="center"
+                     android:layout_gravity="center"
+                     android:textSize="20sp"
+                     android:textColor="@color/black"
+                     android:drawableTop="@drawable/gender"
+                     />
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="vertical"
+                     android:layout_weight="1"
+                     >
+
+                     <RadioGroup
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:id="@+id/result_filter_gendergroup"
+                         >
+
+                         <RadioButton
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:text="Boys"
+                             android:id="@+id/result_filter_gendermale"
+                             />
+
+                         <RadioButton
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:text="Girls"
+                             android:id="@+id/result_filter_genderfemale"
+                             />
+
+                     </RadioGroup>
+                 </LinearLayout>
+
+             </LinearLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="2dp"
+                 android:background="@color/grey"
+                 />
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:weightSum="2"
+                 android:padding="10dp"
+                 >
+
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="Branch"
+                     android:gravity="center"
+                     android:textSize="20sp"
+                     android:textColor="@color/black"
+                     android:drawableTop="@drawable/branch"
+                     />
+
+                 <Spinner
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:id="@+id/result_filter_spinner"
+                     android:layout_weight="1"
+                     android:gravity="center"
+                     />
+
+             </LinearLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="2dp"
+                 android:background="@color/grey"
+                 />
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:weightSum="2"
+                 android:padding="10dp"
+                 >
+
+                 <TextView
+                     android:layout_width="0dp"
+                     android:layout_height="40dp"
+                     android:id="@+id/result_filter_apply"
+                     android:text="Apply"
+                     android:textColor="@color/white"
+                     android:background="@color/lunch_elogo_background"
+                     android:layout_gravity="center_horizontal"
+                     android:gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginRight="5dp"
+                     android:padding="5dp"
+                     android:layout_weight="1"
+                     android:singleLine="true"
+                     android:ellipsize="marquee"
+                     />
+
+                 <TextView
+                     android:layout_width="0dp"
+                     android:layout_height="40dp"
+                     android:id="@+id/result_filter_cancel"
+                     android:text="Cancel"
+                     android:textColor="@color/white"
+                     android:background="@color/lunch_elogo_background"
+                     android:layout_gravity="center_horizontal"
+                     android:gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginLeft="5dp"
+                     android:padding="5dp"
+                     android:layout_weight="1"
+                     android:singleLine="true"
+                     android:ellipsize="marquee"
+                     />
+
+             </LinearLayout>
+
+         </LinearLayout>
+
+
+
+     </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

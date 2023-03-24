@@ -57,7 +57,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        changeColorOfStatusBar(this , R.color.white) ;
+        changeColorOfStatusBar(this , R.color.trans) ;
 
         start = System.currentTimeMillis() ;
 

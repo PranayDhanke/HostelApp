@@ -8,15 +8,18 @@ public class MeritMarksModel implements Serializable{
     String approval ;
     Object result ;
     String resultOf ;
+    String rejection ;
+    String key ;
 
     public MeritMarksModel() {
     }
 
-    public MeritMarksModel(User user, String approval, Object result, String resultOf) {
+    public MeritMarksModel(User user, String approval, Object result, String resultOf, String rejection) {
         this.user = user;
         this.approval = approval;
         this.result = result;
         this.resultOf = resultOf;
+        this.rejection = rejection;
     }
 
     public User getUser() {
@@ -49,5 +52,21 @@ public class MeritMarksModel implements Serializable{
 
     public void setResultOf(String resultOf) {
         this.resultOf = resultOf;
+    }
+
+    public String getRejection() {
+        return rejection;
+    }
+
+    public void setRejection(String rejection) {
+        this.rejection = rejection;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

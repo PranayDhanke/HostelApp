@@ -15,10 +15,4 @@
         android:color="@color/cyan"
         android:width="2dp"/>
 
-    <gradient
-        android:startColor="@color/cyan"
-        android:endColor="#001AFF"
-        android:angle="-270"
-        />
-
 </shape>

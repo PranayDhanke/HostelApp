@@ -40,7 +40,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,7 +51,7 @@ public class Merit_1st_year extends AppCompatActivity {
 
     Toolbar toolbar ;
 
-    EditText marks , outOf , percent ;
+    EditText marks , percent ;
     ImageView marksheet , allotment , aadhar ;
     Chip markchip , allotchip , aachip ;
     Button view , submit ;
@@ -75,7 +78,6 @@ public class Merit_1st_year extends AppCompatActivity {
 
         toolbar = findViewById(R.id.merit_1st_toolbar) ;
         marks = findViewById(R.id.merit_1st_tenmark) ;
-        outOf = findViewById(R.id.merit_1st_outof) ;
         percent = findViewById(R.id.merit_1st_percentage) ;
         marksheet = findViewById(R.id.merit_1st_marksheetimage) ;
         allotment = findViewById(R.id.merit_1st_allotmentimage) ;
@@ -129,29 +131,15 @@ public class Merit_1st_year extends AppCompatActivity {
             }
         });
 
-        outOf.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(!marks.getText().toString().equals("")){
-                    validateMarks() ;
-                }
-                return false;
-            }
-        });
-
-        marks.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(!marks.getText().toString().equals("")){
-                    validateMarks() ;
-                }
-                return false;
-            }
-        });
-
         view.setOnClickListener(v -> {
             //Toast.makeText(this, "Yet to implement", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this , View_Form.class) ;
+            intent.putExtra("10th" , true) ;
+            intent.putExtra("marks_10" , marks.getText().toString()) ;
+            intent.putExtra("percentage_10" , percent.getText().toString()) ;
+            Bundle args = new Bundle() ;
+            args.putSerializable("docs" , (Serializable) Arrays.asList(files));
+            intent.putExtra("BUNDLE" , args) ;
             startActivity(intent);
         });
 
@@ -224,72 +212,30 @@ public class Merit_1st_year extends AppCompatActivity {
         }
     }
 
-    private void validateMarks(){
-        try{
-            int m = Integer.parseInt(marks.getText().toString().trim()) ;
-            int o = Integer.parseInt(outOf.getText().toString().trim()) ;
-
-            if(m == 0 || m < 0 ){
-                percent.setVisibility(View.GONE);
-                marks.setError("Invalid marks");
-                return;
-            }
-            if(o == 0 || o < 0){
-                percent.setVisibility(View.GONE);
-                outOf.setError("Invalid mark");
-                return;
-            }
-            if(m > o){
-                percent.setVisibility(View.GONE);
-                marks.setError("Marks can't be greater than total marks");
-                return;
-            }
-
-            float per = (float) m/o * 100f ;
-            percent.setText(String.format("Percentage :- %.2f" , per));
-            percent.setVisibility(View.VISIBLE);
-            marks.setError(null);
-            outOf.setError(null);
-        }
-        catch (Exception e){
-            Log.d("ValidateMarks", "validateMarks: " + e.getMessage());
-            percent.setVisibility(View.GONE);
-        }
-    }
-
     private boolean isValidateMarks(){
         if(marks.getText().toString().trim().equals("")){
-            percent.setVisibility(View.GONE);
             marks.setError("Invalid marks");
             marks.requestFocus() ;
             return false;
         }
-        if(outOf.getText().toString().trim().equals("")){
-            percent.setVisibility(View.GONE);
-            outOf.setError("Invalid marks");
-            outOf.requestFocus() ;
+        if(percent.getText().toString().trim().equals("")){
+            percent.setError("Invalid marks");
+            percent.requestFocus() ;
             return false;
         }
 
-        int m = Integer.parseInt(marks.getText().toString().trim()) ;
-        int o = Integer.parseInt(outOf.getText().toString().trim()) ;
+        float mark = Float.parseFloat(marks.getText().toString().trim()) ;
+        float perc = Float.parseFloat(percent.getText().toString().trim()) ;
 
-        if(m == 0 || m < 0 ){
-            percent.setVisibility(View.GONE);
+        if(mark <= 0.0){
             marks.setError("Invalid marks");
             marks.requestFocus() ;
             return false;
         }
-        if(o == 0 || o < 0){
-            percent.setVisibility(View.GONE);
-            outOf.setError("Invalid mark");
-            outOf.requestFocus() ;
-            return false;
-        }
-        if(m > o){
-            percent.setVisibility(View.GONE);
-            marks.setError("Marks can't be greater than total marks");
-            marks.requestFocus() ;
+
+        if(perc <= 0.0 || perc > 100.0){
+            percent.setError("Invalid marks");
+            percent.requestFocus() ;
             return false;
         }
 
@@ -396,6 +342,9 @@ public class Merit_1st_year extends AppCompatActivity {
                                                 marksModel.setResult(tenth_marks);
                                                 marksModel.setResultOf("10th");
 
+                                                marksModel.setRejection("no rejection");
+                                                marksModel.setKey(getMarksKey());
+
                                                 batch.set(doc1 , marksModel) ;
                                                 batch.set(doc2 , marksModel) ;
 
@@ -463,9 +412,38 @@ public class Merit_1st_year extends AppCompatActivity {
         tenth_marks.setAadhar(urls[2]);
 
         tenth_marks.setMarks(marks.getText().toString().trim());
-        tenth_marks.setTotal(outOf.getText().toString().trim());
-        tenth_marks.setPercent(percent.getText().toString().trim().replace("Percentage :- ", ""));
+        tenth_marks.setPercent(percent.getText().toString().trim());
+
+        tenth_marks.setTime(System.currentTimeMillis());
+
         return tenth_marks ;
+    }
+
+    private String getMarksKey(){
+        String key = "MeritListData/" ;
+
+        String gender = "" ;
+
+        if(GlobalData.user.getGender().equals("male")){
+            gender = "Boys" ;
+        }
+        else{
+            gender = "Girls" ;
+        }
+
+//        DocumentReference doc2 = firestore.collection("MeritListData")
+//                .document(model.getTitle())
+//                .collection(GlobalData.user.getYear())
+//                .document(gender)
+//                .collection(GlobalData.user.getBranch())
+//                .document(firebaseUser.getUid()) ;
+        key += model.getTitle() + "/" ;
+        key += GlobalData.user.getYear() + "/" ;
+        key += gender + "/" ;
+        key += GlobalData.user.getBranch() + "/" ;
+        key += firebaseUser.getUid() ;
+
+        return key ;
     }
 
 }

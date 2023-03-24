@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myhosteldemo.Merit_Confirm;
 import com.example.myhosteldemo.R;
+import com.example.myhosteldemo.Result_Filter;
+import com.example.myhosteldemo.Result_List_Shower;
 import com.example.myhosteldemo.model.MeritListModel;
 
 import java.util.ArrayList;
@@ -68,7 +70,9 @@ public class MeritList_Select_Adapter extends RecyclerView.Adapter<MeritList_Sel
         });
 
         holder.view.setOnClickListener(v -> {
-
+            Intent intent = new Intent(context , Result_List_Shower.class) ;
+            intent.putExtra("MeritListModel" , model) ;
+            context.startActivity(intent);
         });
 
     }

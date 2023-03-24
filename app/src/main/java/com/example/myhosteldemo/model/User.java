@@ -1,6 +1,8 @@
 package com.example.myhosteldemo.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
    //data members
    String username , email , password , profile , phone , enroll , branch , year , gender , dob ;
    boolean signedin , setuped ;

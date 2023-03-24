@@ -163,7 +163,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/merit_3rd_3marksheet"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
@@ -226,7 +226,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/merit_3rd_4marksheet"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
@@ -289,7 +289,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/merit_3rd_allotmentimage"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
@@ -352,7 +352,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/merit_3rd_aadharimage"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"

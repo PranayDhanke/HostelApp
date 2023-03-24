@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:fitsSystemWindows="false"
-    android:background="@color/white"
+    android:background="@color/cyan"
     >
 
 
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/main_toolbar"
-            android:background="@color/cyandark"
+            android:background="@drawable/common_back_custom"
             >
 
             <LinearLayout
@@ -140,7 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:background="#57A3FBE7"
+                    android:background="@drawable/self_result_back"
                     >
 
                     <LinearLayout
@@ -383,7 +383,7 @@
                 android:layout_height="wrap_content"
                 android:text="By\nGovernment Polytechnic Arvi"
                 android:textSize="20sp"
-                android:textColor="@color/cyandark"
+                android:textColor="@color/red"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:layout_alignParentBottom="true"

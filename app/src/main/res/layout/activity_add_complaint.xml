@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/common_back_custom"
     tools:context=".Add_Complaint">
 
     <androidx.appcompat.widget.Toolbar
@@ -34,7 +35,7 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_margin="10dp"
-        android:background="@color/lightgrey"
+        android:background="@drawable/btn_draweble"
         >
 
         <TextView
@@ -42,7 +43,8 @@
             android:layout_height="wrap_content"
             android:text="Select from : "
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:layout_weight="1"
             android:textAlignment="center"
             android:padding="10dp"
@@ -54,6 +56,7 @@
             android:id="@+id/com_add_spinner"
             android:layout_weight="1"
             android:textAlignment="center"
+            android:backgroundTint="@color/white"
             />
 
     </LinearLayout>
@@ -75,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/com_add_topic"
-            android:background="@drawable/btn_draweble"
+            android:background="@drawable/btn_drawable_white"
             android:padding="12dp"
             android:layout_margin="10dp"
             android:hint="Complaint topic"
@@ -103,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/com_add_desc"
-            android:background="@drawable/btn_draweble"
+            android:background="@drawable/btn_drawable_white"
             android:padding="12dp"
             android:layout_margin="10dp"
             android:hint="Complaint....."
@@ -138,7 +141,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Images"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
@@ -195,6 +199,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/com_add_private"
             android:text="Make it Private"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             />
@@ -203,6 +209,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="We will be using your information (gathered from your account) to validate your concerns and take actions on it."
+            android:textColor="@color/red"
             android:textAlignment="center"
             android:layout_marginBottom="10dp"
             />

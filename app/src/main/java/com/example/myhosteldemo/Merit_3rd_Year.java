@@ -36,6 +36,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
 public class Merit_3rd_Year extends AppCompatActivity {
 
     Toolbar toolbar ;
@@ -119,13 +122,26 @@ public class Merit_3rd_Year extends AppCompatActivity {
             }
         });
 
-        view.setOnClickListener(v -> {});
+        view.setOnClickListener(v -> {
+            Intent intent = new Intent(this , View_Form.class) ;
+            intent.putExtra("3rd" , true) ;
+            intent.putExtra("semthree" , thirdsempercent.getText().toString().trim()) ;
+            intent.putExtra("semfore" , forthsempercent.getText().toString().trim()) ;
+            Bundle bundle = new Bundle() ;
+            bundle.putSerializable("docs" , (Serializable) Arrays.asList(files));
+            intent.putExtra("BUNDLE" , bundle) ;
+            startActivity(intent);
+        });
+
         submit.setOnClickListener(v -> {
+            progressDialog.dismiss();
             progressDialog.setCancelable(false);
             progressDialog.setTitle("Submitting....");
             progressDialog.setMessage("Please wait....");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setIcon(R.drawable.information);
             progressDialog.show();
+
             if(isValidated()){
                 submitForm() ;
             }
@@ -322,7 +338,9 @@ public class Merit_3rd_Year extends AppCompatActivity {
         model.setUser(GlobalData.user);
         model.setApproval("Unapproved");
         model.setResultOf("Second Year");
+        model.setRejection("no rejection");
         model.setResult(getSecondYear());
+        model.setKey(getMarksKey());
 
         WriteBatch batch = firestore.batch() ;
 
@@ -387,6 +405,34 @@ public class Merit_3rd_Year extends AppCompatActivity {
         marks.setMarksheet_4th_sem(urls[1]);
         marks.setAllotment(urls[2]);
         marks.setAadhar(urls[3]);
+        marks.setTime(System.currentTimeMillis());
         return marks ;
+    }
+
+    private String getMarksKey(){
+        String key = "MeritListData/" ;
+
+        String gender = "" ;
+
+        if(GlobalData.user.getGender().equals("male")){
+            gender = "Boys" ;
+        }
+        else{
+            gender = "Girls" ;
+        }
+
+//        DocumentReference doc2 = firestore.collection("MeritListData")
+//                .document(model.getTitle())
+//                .collection(GlobalData.user.getYear())
+//                .document(gender)
+//                .collection(GlobalData.user.getBranch())
+//                .document(firebaseUser.getUid()) ;
+        key += meritModel.getTitle() + "/" ;
+        key += GlobalData.user.getYear() + "/" ;
+        key += gender + "/" ;
+        key += GlobalData.user.getBranch() + "/" ;
+        key += firebaseUser.getUid() ;
+
+        return key ;
     }
 }

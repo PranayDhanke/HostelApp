@@ -218,7 +218,9 @@ public class com_seeall_Fragment extends Fragment {
                             //Toast.makeText(getActivity(), "Data Exists", Toast.LENGTH_SHORT).show();
                             for(DataSnapshot data : snapshot.getChildren()){
                                 //Toast.makeText(getActivity(), "Adding key", Toast.LENGTH_SHORT).show();
-                                keys.add(data.getKey()) ;
+                                if(!fuser.getUid().equals(data.getKey())){
+                                    keys.add(data.getKey()) ;
+                                }
                             }
 
                             loadChildrens(keys) ;

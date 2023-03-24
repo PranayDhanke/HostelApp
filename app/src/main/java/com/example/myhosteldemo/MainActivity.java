@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_demo);
 
-        changeColorOfStatusBar(MainActivity.this , R.color.cyandark) ;
+        changeColorOfStatusBar(MainActivity.this , R.color.blue) ;
 
         signinpref = getSharedPreferences("signin" , MODE_PRIVATE) ;
         editor = signinpref.edit() ;

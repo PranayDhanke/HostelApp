@@ -1,11 +1,24 @@
 package com.example.myhosteldemo.model.Marks;
 
-public class Tenth_Marks {
-    String marks , total , percent ;
+import java.io.Serializable;
+
+public class Tenth_Marks implements Serializable {
+    String marks , percent ;
 
     String marksheet , allotment , aadhar ;
 
+    long time ;
+
     public Tenth_Marks() {
+    }
+
+    public Tenth_Marks(String marks, String percent, String marksheet, String allotment, String aadhar, long time) {
+        this.marks = marks;
+        this.percent = percent;
+        this.marksheet = marksheet;
+        this.allotment = allotment;
+        this.aadhar = aadhar;
+        this.time = time;
     }
 
     public String getMarks() {
@@ -14,14 +27,6 @@ public class Tenth_Marks {
 
     public void setMarks(String marks) {
         this.marks = marks;
-    }
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
     }
 
     public String getPercent() {
@@ -54,5 +59,13 @@ public class Tenth_Marks {
 
     public void setAadhar(String aadhar) {
         this.aadhar = aadhar;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

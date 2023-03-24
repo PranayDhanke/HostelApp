@@ -39,6 +39,7 @@
                 android:padding="10dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
+                android:outlineSpotShadowColor="@color/cyandark"
                 >
 
                 <LinearLayout
@@ -65,7 +66,7 @@
                         app:endIconMode="none"
                         app:boxBackgroundMode="filled"
                         app:boxStrokeWidth="2dp"
-                        app:boxStrokeColor="@color/red"
+                        app:boxStrokeColor="@color/cyandark"
                         android:enabled="true"
                         android:layout_margin="10dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -78,6 +79,7 @@
                             android:inputType="number"
                             android:maxLength="3"
                             android:singleLine="true"
+                            android:background="@color/white"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -85,11 +87,11 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Total marks of 10th board"
+                        android:hint="Percentage"
                         app:endIconMode="none"
                         app:boxBackgroundMode="filled"
                         app:boxStrokeWidth="2dp"
-                        app:boxStrokeColor="@color/red"
+                        app:boxStrokeColor="@color/cyandark"
                         android:enabled="true"
                         android:layout_margin="10dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -98,26 +100,17 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/merit_1st_outof"
-                            android:inputType="number"
-                            android:maxLength="3"
+                            android:id="@+id/merit_1st_percentage"
+                            android:inputType="numberDecimal"
+                            android:maxLength="5"
                             android:singleLine="true"
+                            android:background="@color/white"
+                            android:shadowColor="@color/cyandark"
+                            android:shadowDx="20"
+                            android:shadowDy="20"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/merit_1st_percentage"
-                        android:text="Percentage :- "
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:layout_marginBottom="10dp"
-                        android:enabled="false"
-                        android:visibility="gone"
-                        />
 
                 </LinearLayout>
 
@@ -161,12 +154,12 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/merit_1st_marksheetimage"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
                         android:layout_margin="10dp"
-                        android:background="@color/lightgrey"
+                        android:background="@color/white"
                         android:visibility="gone"
                         />
 
@@ -224,12 +217,12 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/merit_1st_allotmentimage"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
                         android:layout_margin="10dp"
-                        android:background="@color/lightgrey"
+                        android:background="@color/white"
                         android:visibility="gone"
                         />
 
@@ -287,12 +280,12 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/merit_1st_aadharimage"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
                         android:layout_margin="10dp"
-                        android:background="@color/lightgrey"
+                        android:background="@color/white"
                         android:visibility="gone"
                         />
 
