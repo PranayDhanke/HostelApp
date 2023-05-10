@@ -1,9 +1,16 @@
 package com.example.myhosteldemo;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,14 +23,22 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myhosteldemo.Utility.AlertUtil;
 import com.example.myhosteldemo.Utility.GlobalData;
 import com.example.myhosteldemo.model.Marks.Tenth_Marks;
 import com.example.myhosteldemo.model.MeritListModel;
 import com.example.myhosteldemo.model.MeritMarksModel;
 import com.example.myhosteldemo.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -48,6 +63,8 @@ public class Result_10th extends AppCompatActivity {
     Tenth_Marks tenth_marks ;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy  hh:mm aa") ;
+
+    FirebaseFirestore firestore ;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -82,6 +99,8 @@ public class Result_10th extends AppCompatActivity {
         user = (User) prevIntent.getSerializableExtra("User");
         tenth_marks = (Tenth_Marks) prevIntent.getSerializableExtra("10th");
 
+        firestore = FirebaseFirestore.getInstance() ;
+
         fillAllInfo() ;
 
         setSupportActionBar(toolbar);
@@ -111,6 +130,7 @@ public class Result_10th extends AppCompatActivity {
         String[] str = {"Unapproved" , "Approved" , "Rejected"} ;
         ArrayAdapter adapter = new ArrayAdapter(this , R.layout.drop_down_item , str) ;
         approval.setAdapter(adapter) ;
+
         int pos = 0 ;
 
         if(meritMarksModel.getApproval().equals("Unapproved")){
@@ -196,6 +216,45 @@ public class Result_10th extends AppCompatActivity {
         HashMap<String , Object> hash = new HashMap<>() ;
         hash.put("approval" , approval.getSelectedItem().toString()) ;
         hash.put("rejection" , reject.getText().toString()) ;
+
+        ProgressDialog dialog = new ProgressDialog(this) ;
+        dialog.setTitle("Please wait");
+        dialog.setMessage("Saving changes...");
+        dialog.setIcon(R.drawable.information);
+        dialog.setCancelable(false);
+        dialog.show() ;
+
+        firestore.collection("MeritListData")
+                .document(listModel.getTitle())
+                .collection(user.getYear())
+                .document(user.getGender())
+                .collection(user.getBranch())
+                .document(meritMarksModel.getKey().substring(meritMarksModel.getKey().lastIndexOf('/') + 1))
+                .set(hash , SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        AlertUtil.showAlertDialog(Result_10th.this,
+                                "Success",
+                                "Changes saved successfully",
+                                true,
+                                R.drawable.information,
+                                "Ok");
+                        dialog.dismiss();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        AlertUtil.showAlertDialog(Result_10th.this,
+                                "Failed",
+                                "Changes failed to save",
+                                true,
+                                R.drawable.error,
+                                "Ok");
+                        dialog.dismiss();
+                    }
+                }) ;
+
     }
 
     private void showPopup(View v){
@@ -219,17 +278,69 @@ public class Result_10th extends AppCompatActivity {
     }
 
     private void copyKey(){
-        String key = "MeritListData/" ;
-        key += listModel.getTitle() + "/" ;
-        key += user.getYear() + "/" ;
+        try{
+            ClipboardManager clipboardManager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE) ;
+            ClipData clipData = ClipData.newPlainText("Student Result List" , meritMarksModel.getKey()) ;
+            clipboardManager.setPrimaryClip(clipData);
+            Toast.makeText(Result_10th.this, "Student Result List copied Successfully", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Failed to copy Student Result List", Toast.LENGTH_SHORT).show();
+        }
 
-        String gender = user.getGender().equals("male") ? "Boys" : "Girls" ;
-
-        key += gender + "/" ;
-        key += user.getBranch() + "/" ;
     }
 
     private void deleteForm(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this) ;
+        alertDialog.setTitle("Select action") ;
+        alertDialog.setMessage("Dou you really want to delete this form?") ;
+        alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ProgressDialog dialog = new ProgressDialog(Result_10th.this) ;
+                dialog.setTitle("Please wait");
+                dialog.setMessage("Deleting form...");
+                dialog.setIcon(R.drawable.information);
+                dialog.setCancelable(false);
+                dialog.show() ;
 
+                firestore.collection("MeritListData")
+                        .document(listModel.getTitle())
+                        .collection(user.getYear())
+                        .document(user.getGender())
+                        .collection(user.getBranch())
+                        .document(meritMarksModel.getKey().substring(meritMarksModel.getKey().lastIndexOf('/') + 1))
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                GlobalData.formDelete = prevIntent.getIntExtra("Position" , -1) ;
+                                finish();
+                                Snackbar.make(Result_10th.this ,null , "Succesfully deleted form" , 1000).show(); ;
+                                dialog.dismiss();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                AlertUtil.showAlertDialog(Result_10th.this,
+                                        "Failed",
+                                        "failed to delete form",
+                                        true,
+                                        R.drawable.error,
+                                        "Ok");
+                                dialog.dismiss();
+                            }
+                        }) ;
+            }
+        }) ;
+       alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialogInterface, int i) {
+               Toast.makeText(Result_10th.this, "Canceled", Toast.LENGTH_SHORT).show();
+               dialogInterface.dismiss();
+           }
+       }) ;
+
+       alertDialog.show() ;
     }
 }

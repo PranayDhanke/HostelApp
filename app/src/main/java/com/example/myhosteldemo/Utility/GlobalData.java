@@ -42,6 +42,7 @@ public class GlobalData {
     public static String filter_completeness = "" ;
     public static ArrayList<Complaint_Model> complaints = new ArrayList<>() ;
     public static boolean isAdmin = false ;
+    public static int formDelete = -1 ;
 
     public static void changeColorOfStatusBar(Activity activity, int color){
         Window window = activity.getWindow();

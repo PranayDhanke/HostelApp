@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:theme="@style/Theme.MyHostelDemo"
     tools:context=".Mess_Main">
 
     <androidx.appcompat.widget.Toolbar

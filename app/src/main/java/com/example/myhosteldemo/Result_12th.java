@@ -10,5 +10,7 @@ public class Result_12th extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result12th);
+
+
     }
 }

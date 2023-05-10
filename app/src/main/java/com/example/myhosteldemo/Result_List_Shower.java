@@ -162,6 +162,16 @@ public class Result_List_Shower extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        if(GlobalData.formDelete >= 0){
+            arrayList.remove(GlobalData.formDelete) ;
+            resultListShoverAdapter.notifyItemRemoved(GlobalData.formDelete);
+            GlobalData.formDelete = -1 ;
+        }
+        super.onResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.result_list_toolbar_menu , menu);
         MenuItem menuItem = menu.findItem(R.id.search) ;
@@ -380,7 +390,7 @@ public class Result_List_Shower extends AppCompatActivity {
                                 resultListShoverAdapter.arrayList = searchList ;
                                 for(DocumentSnapshot snapshot : value.getDocuments()){
                                     MeritMarksModel meritMarksModel = snapshot.toObject(MeritMarksModel.class) ;
-                                    if(meritMarksModel.getUser().getUsername().contains(query) || meritMarksModel.getUser().getUsername().contains(query.toLowerCase(Locale.ROOT))){
+                                    if(meritMarksModel.getUser().getUsername().contains(query) || meritMarksModel.getUser().getUsername().contains(query.toLowerCase())){
                                         searchList.add(meritMarksModel) ;
                                         resultListShoverAdapter.notifyItemInserted(cur);
                                         cur++ ;

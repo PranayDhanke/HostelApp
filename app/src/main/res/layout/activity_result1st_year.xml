@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/result_10th_toolbar"
+        android:layout_above="@id/result_1st_save"
         >
 
         <androidx.cardview.widget.CardView
@@ -40,7 +41,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/result_10th_profile"
+                    android:id="@+id/result_1st_profile"
                     android:src="@drawable/profile_pic3"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
@@ -50,12 +51,12 @@
                 <TextView
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/result_10th_username"
+                    android:id="@+id/result_1st_username"
                     android:text="Username"
                     android:textColor="@color/black"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintLeft_toRightOf="@id/result_10th_profile"
+                    app:layout_constraintLeft_toRightOf="@id/result_1st_profile"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -65,13 +66,14 @@
                     android:text="09/02/2004 10:30 PM"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintTop_toBottomOf="@id/result_10th_username"
-                    app:layout_constraintLeft_toRightOf="@id/result_10th_profile"
+                    app:layout_constraintTop_toBottomOf="@id/result_1st_username"
+                    app:layout_constraintLeft_toRightOf="@id/result_1st_profile"
                     />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/result_1st_kebab"
                     android:src="@drawable/kebab_menu"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
@@ -83,7 +85,7 @@
 
 
                 <HorizontalScrollView
-                    android:id="@+id/result_10th_hori"
+                    android:id="@+id/result_1st_hori"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -91,7 +93,7 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/result_10th_profile">
+                    app:layout_constraintTop_toBottomOf="@id/result_1st_profile">
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/result_10th_chipgroup"
@@ -101,6 +103,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/result_1st_1marksheet"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="?android:selectableItemBackground"
@@ -109,6 +112,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/result_1st_2marksheet"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="?android:selectableItemBackground"
@@ -117,6 +121,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/result_1st_allotment"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="?android:selectableItemBackground"
@@ -125,6 +130,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/result_1st_aadhar"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="?android:selectableItemBackground"
@@ -142,7 +148,7 @@
                     android:layout_marginTop="10dp"
                     android:stretchColumns="2"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/result_10th_hori">
+                    app:layout_constraintTop_toBottomOf="@+id/result_1st_hori">
 
                     <TableRow
                         android:layout_width="wrap_content"
@@ -211,7 +217,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/view_phone"
+                            android:id="@+id/result_1st_phone"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
@@ -239,7 +245,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/view_enroll"
+                            android:id="@+id/result_1st_enroll"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
@@ -266,7 +272,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/view_branch"
+                            android:id="@+id/result_1st_branch"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
@@ -294,7 +300,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/view_year"
+                            android:id="@+id/result_1st_year"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
@@ -321,7 +327,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/view_gender"
+                            android:id="@+id/result_1st_gender"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
@@ -349,7 +355,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/view_birth"
+                            android:id="@+id/result_1st_birth"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
@@ -381,37 +387,6 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        >
-
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/view_mark1n"
-                            android:text="Marks in 1st sem :-"
-                            android:textColor="@color/black"
-                            android:layout_column="1"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            />
-
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/view_mark1"
-                            android:text="464"
-                            android:layout_column="2"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/view_mark2r"
                         android:padding="10dp"
                         android:background="#752395F1"
@@ -432,7 +407,7 @@
                         <TextView
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/view_mark2"
+                            android:id="@+id/result_1st_1percent"
                             android:text="92.8 %"
                             android:layout_column="2"
                             android:textSize="15sp"
@@ -442,43 +417,12 @@
 
                     </TableRow>
 
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        >
-
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/view_mjdjark1n"
-                            android:text="Marks in 2nd sem :-"
-                            android:textColor="@color/black"
-                            android:layout_column="1"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            />
-
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/view_mardhhdk1"
-                            android:text="464"
-                            android:layout_column="2"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            />
-
-                    </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/view_markdhdhd2r"
                         android:padding="10dp"
-                        android:background="#752395F1"
                         >
 
                         <TextView
@@ -496,7 +440,7 @@
                         <TextView
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/viewffjf_mark2"
+                            android:id="@+id/result_1st_2percent"
                             android:text="92.8 %"
                             android:layout_column="2"
                             android:textSize="15sp"
@@ -511,6 +455,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/view_mark2rnhj"
                         android:padding="10dp"
+                        android:background="#752395F1"
                         >
 
                         <TextView
@@ -528,6 +473,7 @@
                         <Spinner
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/result_1st_approval"
                             android:layout_column="2"
                             />
 
@@ -538,7 +484,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/view_mark2rnhfhjfj"
                         android:padding="10dp"
-                        android:background="#752395F1"
                         >
 
                         <TextView
@@ -556,7 +501,7 @@
                         <TextView
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/view_markdj2njfjhhhj"
+                            android:id="@+id/result_1st_rank"
                             android:text="NA"
                             android:layout_column="2"
                             android:textSize="15sp"
@@ -572,6 +517,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/result_1st_reject"
                     android:hint="Reason of rejection"
                     app:endIconMode="none"
                     app:boxBackgroundMode="filled"
@@ -603,5 +549,25 @@
         </androidx.cardview.widget.CardView>
 
     </ScrollView>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:id="@+id/result_1st_save"
+        android:text="Update"
+        android:textColor="@color/white"
+        android:background="@color/lunch_elogo_background"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        />
 
 </RelativeLayout>

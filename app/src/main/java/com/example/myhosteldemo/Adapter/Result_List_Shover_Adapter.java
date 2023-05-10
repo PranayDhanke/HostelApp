@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Result_List_Shover_Adapter extends RecyclerView.Adapter<Result_List_Shover_Adapter.ViewHolder> {
-    Context context ;
+    public static Context context ;
     public static ArrayList<MeritMarksModel> arrayList ;
     public static MeritListModel listModel ;
 
@@ -49,7 +49,7 @@ public class Result_List_Shover_Adapter extends RecyclerView.Adapter<Result_List
         MeritMarksModel model = arrayList.get(position) ;
 
         if(model.getResultOf().equals("10th")){
-            fillResultOf10th(holder , model) ;
+            fillResultOf10th(holder , model , position) ;
         }
         else if(model.getResultOf().equals("1st year")){
 
@@ -61,7 +61,7 @@ public class Result_List_Shover_Adapter extends RecyclerView.Adapter<Result_List
 
         }
         else{
-            fillResultOf3rdYear(holder , model) ;
+            fillResultOf3rdYear(holder , model , position) ;
         }
     }
 
@@ -81,7 +81,7 @@ public class Result_List_Shover_Adapter extends RecyclerView.Adapter<Result_List
         }
     }
 
-    private void fillResultOf10th(ViewHolder holder , MeritMarksModel model){
+    private void fillResultOf10th(ViewHolder holder , MeritMarksModel model , int position){
         HashMap<String , Object> hash = (HashMap<String, Object>) model.getResult();
 
         String marks = (String) hash.get("marks");
@@ -116,11 +116,12 @@ public class Result_List_Shover_Adapter extends RecyclerView.Adapter<Result_List
             intent.putExtra("User" , user) ;
             intent.putExtra("10th" , tenth_marks) ;
             intent.putExtra("MeritListModel" , listModel) ;
+            intent.putExtra("Position" , position) ;
             context.startActivity(intent);
         });
     }
 
-    private void fillResultOf3rdYear(ViewHolder holder , MeritMarksModel model){
+    private void fillResultOf3rdYear(ViewHolder holder , MeritMarksModel model , int position){
         HashMap<String , Object> hash = (HashMap<String, Object>) model.getResult();
 
         String percent3 = (String) hash.get("percentege_of_3rd_sem");
@@ -162,6 +163,7 @@ public class Result_List_Shover_Adapter extends RecyclerView.Adapter<Result_List
             intent.putExtra("User" , user) ;
             intent.putExtra("2nd year" , secondYear_marks) ;
             intent.putExtra("MeritListModel" , listModel) ;
+            intent.putExtra("Position" , position) ;
             context.startActivity(intent);
         });
     }
